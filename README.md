@@ -16,4 +16,4 @@ Just execute `gradle bootRun`
 
 Just execute `gradle clean build`
 
-and then `java -jar build/libs/spring-data-simple-0.0.1-SNAPSHOT.jar`
+and then `java -jar build/libs/spring-boot-data-0.0.1-SNAPSHOT.jar`
