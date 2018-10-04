@@ -1,0 +1,34 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+compileJava.options.encoding = 'UTF-8'
+
+sourceSets {
+	test {
+		java { srcDirs = ['src/test/unit/java'] }
+        groovy { srcDirs = ['src/test/unit/groovy'] }
+		resources { srcDirs = ['src/test/unit/resources'] }
+	}
+	integration {
+		java { srcDirs = ['src/test/integration/java'] }
+        groovy { srcDirs = ['src/test/integration/groovy'] }
+		resources { srcDirs = ['src/test/integration/resources'] }
+		compileClasspath += main.output + test.output
+		runtimeClasspath += main.output + test.output
+	}
+}
+
+configurations {
+	integrationCompile.extendsFrom testCompile
+	integrationRuntime.extendsFrom testRuntime
+}
+
+task integration(type: Test, description: 'Runs the integration tests.', group: 'Verification') {
+	doFirst {
+		println 'Running Java/Groovy integration tests...'
+	}
+	testClassesDirs = sourceSets.integration.output.classesDirs
+	classpath += sourceSets.integration.runtimeClasspath
+}
+
+build.dependsOn integration

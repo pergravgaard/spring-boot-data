@@ -1,0 +1,54 @@
+ext {
+    groovyVersion = '2.5.2'
+    bootVersion = '2.0.5.RELEASE'
+    h2Version = '1.4.197'
+    mariadbVersion = '2.3.0'
+    log4j2Version = '2.11.1'
+    jacksonVersion = '2.9.6'
+    hibernateCoreVersion = '5.3.6.Final'
+    hibernateValidatorVersion = '6.0.12.Final'
+    validationApiVersion = '2.0.1.Final'
+}
+
+// gradle -q dependencyInsight --dependency groovy --configuration compile
+configurations {
+    all {
+
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        //exclude group: "org.slf4j"
+        //exclude group: "ch.qos.logback"
+
+        resolutionStrategy {
+
+            // force certain versions of dependencies (including transitive)
+            force "org.codehaus.groovy:groovy:${groovyVersion}", "org.codehaus.groovy:groovy-all:${groovyVersion}", "org.hibernate:hibernate-core:${hibernateCoreVersion}", "org.hibernate:hibernate-java8:${hibernateCoreVersion}", "org.hibernate:hibernate-validator:${hibernateValidatorVersion}", "javax.validation:validation-api:${validationApiVersion}"
+
+            // add dependency substitution rules
+            dependencySubstitution {
+
+                substitute module('org.mariadb.jdbc:mariadb-java-client') with module("org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}")
+
+                substitute module('org.codehaus.groovy:groovy') with module("org.codehaus.groovy:groovy:${groovyVersion}")
+                substitute module('org.codehaus.groovy:groovy-all') with module("org.codehaus.groovy:groovy-all:${groovyVersion}")
+
+                // module org.hibernate:hibernate-entitymanager is deprecated - use org.hibernate:hibernate-core instead
+                substitute module('org.hibernate:hibernate-entitymanager') with module("org.hibernate:hibernate-core:${hibernateCoreVersion}")
+                substitute module('org.hibernate:hibernate-core') with module("org.hibernate:hibernate-core:${hibernateCoreVersion}")
+                substitute module('org.hibernate:hibernate-validator') with module("org.hibernate:hibernate-validator:${hibernateValidatorVersion}")
+                substitute module('javax.validation:validation-api') with module("javax.validation:validation-api:${validationApiVersion}")
+
+                substitute module('org.apache.logging.log4j:log4j-core') with module("org.apache.logging.log4j:log4j-core:${log4j2Version}")
+                substitute module('org.apache.logging.log4j:log4j-api') with module("org.apache.logging.log4j:log4j-api:${log4j2Version}")
+                substitute module('org.apache.logging.log4j:log4j-slf4j') with module("org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}")
+
+                substitute module('com.fasterxml.jackson.dataformat:jackson-dataformat-xml') with module("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jacksonVersion}")
+                substitute module('com.fasterxml.jackson.datatype:jackson-datatype-jsr310') with module("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}")
+                substitute module('com.fasterxml.jackson.module:jackson-module-jaxb-annotations') with module("com.fasterxml.jackson.module:jackson-module-jaxb-annotations:${jacksonVersion}")
+                substitute module('com.fasterxml.jackson.core:jackson-databind') with module("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
+                substitute module('com.fasterxml.jackson.core:jackson-annotations') with module("com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}")
+
+            }
+
+        }
+    }
+}

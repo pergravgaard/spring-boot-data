@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Appenders>
+        <Async name="STDOUT_ASYNC">
+            <AppenderRef ref="STDOUT" />
+        </Async>
+        <Console name="STDOUT">
+            <PatternLayout>
+                <pattern>
+                    %d [%t] %-5p %c - %m%n
+                </pattern>>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.jysk" additivity="false" level="info">
+            <AppenderRef ref="STDOUT_ASYNC" />
+        </Logger>
+        <Logger name="org.springframework" additivity="false" level="info">
+            <AppenderRef ref="STDOUT_ASYNC" />
+        </Logger>
+        <Logger name="org.hibernate" additivity="false" level="info">
+            <AppenderRef ref="STDOUT_ASYNC" />
+        </Logger>
+        <Logger name="io.netty" additivity="false" level="warn">
+            <AppenderRef ref="STDOUT_ASYNC" />
+        </Logger>
+        <Logger name="org.jboss" additivity="false" level="info">
+            <AppenderRef ref="STDOUT_ASYNC" />
+        </Logger>
+        <Root level="warn">
+            <AppenderRef ref="STDOUT_ASYNC" />
+        </Root>
+    </Loggers>
+</Configuration>
