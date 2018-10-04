@@ -1,5 +1,7 @@
 package com.company.model.jpa;
 
+import org.springframework.lang.Nullable;
+
 import java.io.Serializable;
 
 public interface Persistable<ID extends Serializable> extends Serializable {
@@ -9,6 +11,7 @@ public interface Persistable<ID extends Serializable> extends Serializable {
      *
      * @return the id
      */
+    @Nullable
     ID getId();
 
     /**

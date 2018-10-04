@@ -19,6 +19,7 @@ apply from: 'versions.gradle'
 apply from: 'java-groovy-test-structure.gradle'
 //apply plugin: 'war'
 
+//archivesBaseName = 'ROOT' // dictate the name of the artifact - default is project folder name
 group = 'com.company'
 version = '0.0.1-SNAPSHOT'
 
