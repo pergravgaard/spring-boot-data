@@ -6,7 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 public class Person extends BaseAuditableEntity<String, Long> {
@@ -20,7 +20,7 @@ public class Person extends BaseAuditableEntity<String, Long> {
     private String lastName;
 
     @NotNull
-    private LocalDateTime birthDateTime;
+    private ZonedDateTime birthDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Address address;
@@ -41,11 +41,11 @@ public class Person extends BaseAuditableEntity<String, Long> {
         this.lastName = lastName;
     }
 
-    public LocalDateTime getBirthDateTime() {
+    public ZonedDateTime getBirthDateTime() {
         return birthDateTime;
     }
 
-    public void setBirthDateTime(LocalDateTime birthDateTime) {
+    public void setBirthDateTime(ZonedDateTime birthDateTime) {
         this.birthDateTime = birthDateTime;
     }
 

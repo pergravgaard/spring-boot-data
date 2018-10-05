@@ -7,10 +7,11 @@ import com.company.repository.jpa.PersonRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @ComponentScan("com.company")
 @PropertySources({
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 //        @PropertySource(value = {"classpath:h2.properties", "classpath:h2-${env}.properties"}, ignoreResourceNotFound = true)
 })
 @EnableAutoConfiguration(exclude = {
+        RepositoryRestMvcAutoConfiguration.class,
         DataSourceAutoConfiguration.class,
         JpaRepositoriesAutoConfiguration.class
 })
@@ -36,7 +38,7 @@ public class AppConfig {
             address.setCountry("USA");
             addressRepository.save(address);
 
-            LocalDateTime now = LocalDateTime.now();
+            ZonedDateTime now = ZonedDateTime.now();
 
             Person jack = new Person();
             jack.setFirstName("Jack");

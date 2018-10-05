@@ -13,14 +13,19 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
 public class PersonRepositoryTest {
+
+    private LocalDateTime localDateTime;
+    private ZonedDateTime utcPointInTime;
+    private ZonedDateTime systemPointInTime;
 
     @Autowired
     private PersonRepository personRepository;
@@ -30,6 +35,9 @@ public class PersonRepositoryTest {
 
     @Before
     public void setUp() {
+        localDateTime = LocalDateTime.of(1971, 12, 10, 14, 15);
+        utcPointInTime = ZonedDateTime.of(localDateTime, ZoneOffset.UTC);
+        systemPointInTime = ZonedDateTime.of(localDateTime, ZoneOffset.ofHours(1));
 
         Address address = new Address();
         address.setStreet("Hollywood Avenue");
@@ -41,19 +49,20 @@ public class PersonRepositoryTest {
 
         addressRepository.save(address);
 
-        LocalDateTime now = LocalDateTime.now();
+//        System.out.println("local utcPointInTime: " + localDateTime);
+//        System.out.println("utcPointInTime: " + utcPointInTime + ", offset: " + utcPointInTime.getOffset());
 
         Person jack = new Person();
         jack.setFirstName("Jack");
         jack.setLastName("Bauer");
-        jack.setBirthDateTime(now.withNano(0).withSecond(0).minusYears(40));
+        jack.setBirthDateTime(utcPointInTime.withNano(0).withSecond(0).withZoneSameLocal(ZoneOffset.ofHours(-7)));
         jack.setAddress(address);
         personRepository.save(jack);
 
         Person kim = new Person();
         kim.setFirstName("Kim");
         kim.setLastName("Bauer");
-        kim.setBirthDateTime(now.withNano(0).withSecond(0).minusYears(21));
+        kim.setBirthDateTime(utcPointInTime.withNano(0).withSecond(0).plusYears(25).withZoneSameLocal(ZoneOffset.ofHours(-7)));
         kim.setAddress(address);
         personRepository.save(kim);
 
@@ -63,6 +72,34 @@ public class PersonRepositoryTest {
     public void tearDown() {
         personRepository.deleteAll();
         addressRepository.deleteAll();
+    }
+
+    @Test
+    public void testZonedDateTimeAndAuditing() {
+
+        Person jack = personRepository.findFirstByFirstNameAndLastName("Jack", "Bauer");
+
+        // a ZonedDateTime field is always represented by a ZonedDateTime instance in the system default time zone, when fetched from DB
+        ZonedDateTime jacksBirthDateTime = jack.getBirthDateTime().withZoneSameLocal(ZoneOffset.ofHours(-7));
+
+        assertEquals(ZonedDateTime.now().getOffset(), jack.getCreatedDateTime().getOffset());
+        assertEquals(systemPointInTime.getOffset(), jack.getBirthDateTime().getOffset());
+        assertEquals(ZoneOffset.ofHours(-7), jacksBirthDateTime.getOffset());
+        assertEquals(22, jacksBirthDateTime.getHour());
+        assertEquals(jack.getCreatedDateTime(), jack.getLastModifiedDateTime());
+        assertNull(jack.getCreatedBy());
+        assertNull(jack.getLastModifiedBy());
+        assertEquals(0, jack.getVersion().intValue());
+
+        jack.setFirstName("Jacko");
+
+        personRepository.save(jack);
+
+        jack = personRepository.findById(jack.getId()).get();
+//        jack = personRepository.findFirstByFirstNameAndLastName("Jacko", "Bauer");
+
+        assertTrue(jack.getCreatedDateTime().isBefore(jack.getLastModifiedDateTime()));
+        assertEquals(1, jack.getVersion().intValue());
     }
 
     @Test
@@ -79,7 +116,7 @@ public class PersonRepositoryTest {
 
         List<Person> persons = personRepository.findAllByLastName("Bauer");
 
-        // now transaction is terminated, but you can still access the proxy object
+        // utcPointInTime transaction is terminated, but you can still access the proxy object
         assertNotNull(persons.get(0).getAddress());
 
         // and you can access the id of proxy object
@@ -95,7 +132,7 @@ public class PersonRepositoryTest {
 
         Person kimBauer = personRepository.findFirstByFirstNameAndLastName("Kim", "Bauer");
 
-        // now transaction is terminated, but you can still access the proxy object
+        // utcPointInTime transaction is terminated, but you can still access the proxy object
         assertNotNull(kimBauer.getAddress());
 
         // and you can access the id of proxy object
@@ -114,7 +151,7 @@ public class PersonRepositoryTest {
 
         assertNotNull(theBauers.get(0).getAddress()); // as above
 
-        // now transaction is terminated and JPA can't initialize the proxy object
+        // utcPointInTime transaction is terminated and JPA can't initialize the proxy object
         theBauers.get(0).getAddress().getStreet();
 
     }

@@ -3,7 +3,11 @@ buildscript {
 		springBootVersion = '2.0.5.RELEASE'
 	}
 	repositories {
-		mavenCentral()
+		maven {
+			url "http://jenkins.jysk.local:7070/artifactory/repo/"
+		}
+
+//		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -27,7 +31,10 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+//	mavenCentral()
+    maven {
+        url "http://jenkins.jysk.local:7070/artifactory/repo/"
+    }
 }
 
 dependencies {

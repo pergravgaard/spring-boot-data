@@ -60,3 +60,5 @@ This pattern should be avoided at all costs.
 - Spring Guides (https://spring.io/guides)
 - Baeldung (https://www.baeldung.com)
 - Spring Data JPA Tutorial (https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tutorial-auditing-part-one/)
+- JPA and Java 8 Date Time (https://vladmihalcea.com/whats-new-in-jpa-2-2-java-8-date-and-time-types/)
+- Don't use java.util.Date (https://programminghints.com/2017/05/still-using-java-util-date-dont/)
