@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -21,16 +22,30 @@ public class JacksonConfig {
     }
 
     @Bean
-    public ObjectMapper objectMapper() {
+    @Primary
+    public ObjectMapper serializingObjectMapper() {
         ObjectMapper jsonMapper = new ObjectMapper();
         jsonMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         jsonMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true);
         JavaTimeModule jtm = new JavaTimeModule();
         jtm.addSerializer(LocalDateTime.class, new LocalDateTimeIso8601Serializer());
+        //jtm.addDeserializer(LocalDateTime.class, new LocalDateTimeIso8601Serializer());
         jtm.addSerializer(ZonedDateTime.class, new ZonedDateTimeIso8601Serializer());
         jsonMapper.registerModule(jtm);
         jsonMapper.addMixIn(byte[].class, MixinClass.class);
         jsonMapper.addMixIn(Byte[].class, MixinClass.class);
         return jsonMapper;
     }
+
+//    @Bean
+//    @Primary
+//    public ObjectMapper serializingObjectMapper() {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        JavaTimeModule javaTimeModule = new JavaTimeModule();
+//        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer());
+//        javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer());
+//        objectMapper.registerModule(javaTimeModule);
+//        return objectMapper;
+//    }
+
 }

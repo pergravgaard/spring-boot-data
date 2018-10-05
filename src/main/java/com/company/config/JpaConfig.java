@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.Properties;
 
 @EnableJpaRepositories(basePackages = "com.company.repository.jpa", repositoryBaseClass = GenericJpaRepositoryImpl.class)
-@EnableJpaAuditing(dateTimeProviderRef = "auditingDateTimeProvider")
+@EnableJpaAuditing(dateTimeProviderRef = "dateTimeProvider")
 @EnableTransactionManagement
 public class JpaConfig {
 
@@ -34,7 +34,7 @@ public class JpaConfig {
     private LocalValidatorFactoryBean validator;
 
     // necessary for Spring Boot 2.0 to support ZonedDateTime for auditing
-    @Bean(name = "auditingDateTimeProvider")
+    @Bean(name = "dateTimeProvider")
     public DateTimeProvider dateTimeProvider() {
         return () -> Optional.of(ZonedDateTime.now());
     }

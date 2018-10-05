@@ -11,7 +11,7 @@ import org.springframework.context.annotation.PropertySources;
 //        @PropertySource(value = {"classpath:mariadb.properties", "classpath:mariadb-${env}.properties"}, ignoreResourceNotFound = true)
         @PropertySource(value = {"classpath:h2.properties", "classpath:h2-${env}.properties"}, ignoreResourceNotFound = true)
 })
-@Import({JpaDataSourceConfig.class, JpaConfig.class, BaseConfig.class})
+@Import({JpaDataSourceConfig.class, JpaConfig.class})
 public class TestConfig {
 
 }

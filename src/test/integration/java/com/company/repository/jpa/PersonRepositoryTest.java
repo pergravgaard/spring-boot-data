@@ -75,7 +75,7 @@ public class PersonRepositoryTest {
     }
 
     @Test(expected = LazyInitializationException.class)
-    public void testLazyLoadingExceptionForFindAll() {
+    public void testLazyLoadingExceptionFindAllByLastName() {
 
         List<Person> persons = personRepository.findAllByLastName("Bauer");
 
@@ -90,17 +90,32 @@ public class PersonRepositoryTest {
 
     }
 
+    @Test(expected = LazyInitializationException.class)
+    public void testLazyLoadingExceptionFindFirstByFirstNameAndLastName() {
+
+        Person kimBauer = personRepository.findFirstByFirstNameAndLastName("Kim", "Bauer");
+
+        // now transaction is terminated, but you can still access the proxy object
+        assertNotNull(kimBauer.getAddress());
+
+        // and you can access the id of proxy object
+        assertNotNull(kimBauer.getAddress().getId());
+
+        // but you cannot access any other field
+        kimBauer.getAddress().getStreet();
+
+    }
+
     // See https://vladmihalcea.com/how-does-a-jpa-proxy-work-and-how-to-unproxy-it-with-hibernate/
     @Test(expected = LazyInitializationException.class)
-    public void testLazyLoadingExceptionForGetOne() {
+    public void testLazyLoadingExceptionGetOne() {
 
         List<Person> theBauers = personRepository.findAllByLastName("Bauer");
 
         assertNotNull(theBauers.get(0).getAddress()); // as above
 
-        Person aBauer = personRepository.getOne(theBauers.get(0).getId());
         // now transaction is terminated and JPA can't initialize the proxy object
-        aBauer.getAddress();
+        theBauers.get(0).getAddress().getStreet();
 
     }
 

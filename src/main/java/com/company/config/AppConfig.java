@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
         DataSourceAutoConfiguration.class,
         JpaRepositoriesAutoConfiguration.class
 })
-@Import({JpaDataSourceConfig.class, JpaConfig.class, BaseConfig.class, JacksonConfig.class})
+@Import({JpaDataSourceConfig.class, JpaConfig.class, JacksonConfig.class, RestConfig.class})
 public class AppConfig {
 
 	@Bean
