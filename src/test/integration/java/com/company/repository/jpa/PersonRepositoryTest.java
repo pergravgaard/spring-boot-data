@@ -116,7 +116,7 @@ public class PersonRepositoryTest {
 
         List<Person> persons = personRepository.findAllByLastName("Bauer");
 
-        // utcPointInTime transaction is terminated, but you can still access the proxy object
+        // now transaction is terminated, but you can still access the proxy object
         assertNotNull(persons.get(0).getAddress());
 
         // and you can access the id of proxy object
@@ -132,7 +132,7 @@ public class PersonRepositoryTest {
 
         Person kimBauer = personRepository.findFirstByFirstNameAndLastName("Kim", "Bauer");
 
-        // utcPointInTime transaction is terminated, but you can still access the proxy object
+        // now transaction is terminated, but you can still access the proxy object
         assertNotNull(kimBauer.getAddress());
 
         // and you can access the id of proxy object
@@ -144,15 +144,14 @@ public class PersonRepositoryTest {
     }
 
     // See https://vladmihalcea.com/how-does-a-jpa-proxy-work-and-how-to-unproxy-it-with-hibernate/
+    // See https://vladmihalcea.com/entitymanager-find-getreference-jpa/
     @Test(expected = LazyInitializationException.class)
     public void testLazyLoadingExceptionGetOne() {
 
-        List<Person> theBauers = personRepository.findAllByLastName("Bauer");
+        Person jack = personRepository.findFirstByFirstNameAndLastName("Jack", "Bauer");
 
-        assertNotNull(theBauers.get(0).getAddress()); // as above
-
-        // utcPointInTime transaction is terminated and JPA can't initialize the proxy object
-        theBauers.get(0).getAddress().getStreet();
+        // getOne returns a proxy object for the person instance, so the address can't be accessed
+        personRepository.getOne(jack.getId()).getAddress();
 
     }
 
