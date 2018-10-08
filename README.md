@@ -14,7 +14,7 @@ This project shows how to use Spring Data as the JPA layer and how to configure 
 
 Furthermore we'll learn how to use the new java.time classes in JPA and in JPA auditing.
 
-Many people dislikes Spring due to the "magic" of how easy it is to get started on a project.
+Some people dislikes Spring due to the "magic" of how easy it is to get started on a project.
 Of course there is no magic to it, but just a lot of sensible default configuration for each layer/component in your application.
 
 So if you do not have any custom needs, you're done.
