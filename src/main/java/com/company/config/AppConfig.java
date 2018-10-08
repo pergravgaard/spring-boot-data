@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.*;
 
 import java.time.ZonedDateTime;
+import java.util.TimeZone;
 
 @ComponentScan("com.company")
 @PropertySources({
@@ -25,6 +26,10 @@ import java.time.ZonedDateTime;
 })
 @Import({JpaDataSourceConfig.class, JpaConfig.class/*, BaseConfig.class, JacksonConfig.class*/, RestConfig.class})
 public class AppConfig {
+
+    static {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
 
 	@Bean
 	public CommandLineRunner bootstrap(AddressRepository addressRepository, PersonRepository personRepository) {

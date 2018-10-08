@@ -25,7 +25,6 @@ public class PersonRepositoryTest {
 
     private LocalDateTime localDateTime;
     private ZonedDateTime utcPointInTime;
-    private ZonedDateTime systemPointInTime;
 
     @Autowired
     private PersonRepository personRepository;
@@ -37,7 +36,6 @@ public class PersonRepositoryTest {
     public void setUp() {
         localDateTime = LocalDateTime.of(1971, 12, 10, 14, 15);
         utcPointInTime = ZonedDateTime.of(localDateTime, ZoneOffset.UTC);
-        systemPointInTime = ZonedDateTime.of(localDateTime, ZoneOffset.ofHours(1));
 
         Address address = new Address();
         address.setStreet("Hollywood Avenue");
@@ -83,9 +81,9 @@ public class PersonRepositoryTest {
         ZonedDateTime jacksBirthDateTime = jack.getBirthDateTime().withZoneSameLocal(ZoneOffset.ofHours(-7));
 
         assertEquals(ZonedDateTime.now().getOffset(), jack.getCreatedDateTime().getOffset());
-        assertEquals(systemPointInTime.getOffset(), jack.getBirthDateTime().getOffset());
+        assertEquals(ZoneOffset.UTC, jack.getBirthDateTime().getOffset());
         assertEquals(ZoneOffset.ofHours(-7), jacksBirthDateTime.getOffset());
-        assertEquals(22, jacksBirthDateTime.getHour());
+        assertEquals(21, jacksBirthDateTime.getHour());
         assertEquals(jack.getCreatedDateTime(), jack.getLastModifiedDateTime());
         assertNull(jack.getCreatedBy());
         assertNull(jack.getLastModifiedBy());

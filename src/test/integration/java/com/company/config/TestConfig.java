@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
+import java.util.TimeZone;
+
 
 @ComponentScan("com.company")
 @PropertySources({
@@ -13,5 +15,11 @@ import org.springframework.context.annotation.PropertySources;
 })
 @Import({JpaDataSourceConfig.class, JpaConfig.class})
 public class TestConfig {
+
+    static {
+        //System.setProperty("user.timezone", "GMT");
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
+
 
 }
