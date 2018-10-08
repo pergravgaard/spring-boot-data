@@ -11,10 +11,13 @@ public class ExampleApplication /* extends SpringBootServletInitializer */ {
 	public static void main(String[] args) {
 		System.setProperty("env", "development");
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(ExampleApplication.class, args);
-//        String[] beanNames = applicationContext.getBeanDefinitionNames();
-//        for (String bName : beanNames) {
-//            System.out.println("bean: " + bName + ", class: " + applicationContext.getBean(bName));
-//        }
+        String[] beanNames = applicationContext.getBeanDefinitionNames();
+        for (String bName : beanNames) {
+        	if (bName.contains("onversionService")) {
+
+            	System.out.println("bean: " + bName + ", class: " + applicationContext.getBean(bName).getClass());
+			}
+        }
     }
 
 //	@Override

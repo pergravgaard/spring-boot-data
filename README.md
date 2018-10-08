@@ -1,9 +1,12 @@
 
 #TODO
 
-- disable Open In Session View
-- Check ZonedDateTime in DB
-- REST: Convert ZonedDateTime
+- Test Rest Controller
+- How many conversion services in Spring?
+- REST: Convert ZonedDateTime. WORKAROUND - CREATE BUG REPORT
+- getOne (getReference and lazy initialization exception) DONE
+- disable Open In Session View. DONE
+- Check ZonedDateTime in DB. DONE
 
 #Introduction
 
@@ -50,6 +53,8 @@ and then `java -jar build/libs/spring-boot-data-0.0.1-SNAPSHOT.jar`
 Read this article on the impact on starting JPA session in HTTP layer:
 https://vladmihalcea.com/the-open-session-in-view-anti-pattern/
 
+If using DTO projections anyway as recommended in the article, there's is absolutely no need to keep the session open in the view layer.
+
 This pattern should be avoided at all costs.
 
 #Other Resources
@@ -58,7 +63,10 @@ This pattern should be avoided at all costs.
 - Spring Projects (https://spring.io/projects)
 - Spring Documentation (https://spring.io/docs)
 - Spring Guides (https://spring.io/guides)
+- Spring Reference (https://spring.io/docs/reference)
 - Baeldung (https://www.baeldung.com)
+- JPA getReference vs find (https://vladmihalcea.com/entitymanager-find-getreference-jpa/)
 - Spring Data JPA Tutorial (https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tutorial-auditing-part-one/)
 - JPA and Java 8 Date Time (https://vladmihalcea.com/whats-new-in-jpa-2-2-java-8-date-and-time-types/)
 - Don't use java.util.Date (https://programminghints.com/2017/05/still-using-java-util-date-dont/)
+- Resource Naming (https://restfulapi.net/resource-naming/)

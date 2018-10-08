@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import java.time.LocalDateTime;
@@ -29,6 +28,7 @@ public class JacksonConfig {
         jsonMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true);
         JavaTimeModule jtm = new JavaTimeModule();
         jtm.addSerializer(LocalDateTime.class, new LocalDateTimeIso8601Serializer());
+        // TODO: add deserializers as well
         //jtm.addDeserializer(LocalDateTime.class, new LocalDateTimeIso8601Serializer());
         jtm.addSerializer(ZonedDateTime.class, new ZonedDateTimeIso8601Serializer());
         jsonMapper.registerModule(jtm);
@@ -36,16 +36,5 @@ public class JacksonConfig {
         jsonMapper.addMixIn(Byte[].class, MixinClass.class);
         return jsonMapper;
     }
-
-//    @Bean
-//    @Primary
-//    public ObjectMapper serializingObjectMapper() {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        JavaTimeModule javaTimeModule = new JavaTimeModule();
-//        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer());
-//        javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer());
-//        objectMapper.registerModule(javaTimeModule);
-//        return objectMapper;
-//    }
 
 }

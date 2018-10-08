@@ -12,6 +12,7 @@ import java.util.Map;
 
 
 @RepositoryRestResource(collectionResourceRel="person", path="person")
+//@Repository
 public interface PersonRepository extends GenericJpaRepository<Person, Long> {
 
     // no transactional annotation needed here, but the implementation will be transactional
