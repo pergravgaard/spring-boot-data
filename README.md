@@ -1,6 +1,7 @@
 
 #TODO
 
+- Spring Data Solr
 - Test Rest Controller
 - How many conversion services in Spring?
 - REST: Convert ZonedDateTime. WORKAROUND - CREATE BUG REPORT
@@ -21,12 +22,12 @@ So if you do not have any custom needs, you're done.
 
 But at the end of the day you always have custom needs that requires changes in the default configuration of every layer provided by Spring.
 
-So we'll disable the default configuration of the JPA layer and configure it manually. Not by XML, but pure Java classes only, except from a few property files.
+So we'll disable the default configuration of the JPA layer and configure it manually.
+Not by XML though, but pure Java classes only. Except from a few property files.
 
 
 -----
 
-Noticed that you never installed or referred an existing HTTP server?
 
 #Running the application
 
@@ -47,6 +48,8 @@ Just execute `gradle bootRun`
 Just execute `gradle clean build`
 
 and then `java -jar build/libs/spring-boot-data-0.0.1-SNAPSHOT.jar`
+
+Noticed that you never installed or referred an existing HTTP server?
 
 # Open Session in View Is An Anti-Pattern
 
