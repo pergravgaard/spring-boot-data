@@ -22,14 +22,14 @@ public abstract class AbstractRestController<R extends ResourceSupport, E extend
 
     protected abstract Class getControllerClass();
 
-    @RequestMapping(path = "/{id}", produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(path = "/{id}", produces = {"application/hal+json", "application/json"}, method = RequestMethod.GET)
     public HttpEntity<R> findById(@PathVariable ID id) {
         R resourceSupportInstance = getResourceSupportInstance(restFindById(id));
         //resourceSupportInstance.add(linkTo(methodOn(getControllerClass()).findById(id)).withSelfRel());
         return new ResponseEntity<>(resourceSupportInstance, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "", produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(path = "", produces = {"application/hal+json", "application/json"}, method = RequestMethod.GET)
     public HttpEntity<List<R>> list() {
         List<R> list = getRepository().findAll().stream().map(this::getResourceSupportInstance).collect(Collectors.toList());
         return new ResponseEntity<>(list, HttpStatus.OK);

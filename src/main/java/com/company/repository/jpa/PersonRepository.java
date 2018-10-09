@@ -2,10 +2,15 @@ package com.company.repository.jpa;
 
 
 import com.company.model.jpa.Person;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityGraph;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +39,34 @@ public interface PersonRepository extends GenericJpaRepository<Person, Long> {
         graph.addSubgraph("address"); // tell JPA to fetch the address
 
         Map hints = new HashMap();
-        hints.put("javax.persistence.loadgraph", graph);
+        hints.put("javax.persistence.fetchgraph", graph);
         return getEntityManager().find(Person.class, id, hints);
-
     }
+
+//    @QueryHints(value = {
+//            @QueryHint(name = "javax.persistence.fetchgraph", value = "address")
+//    }, forCounting = false)
+//    @org.springframework.data.jpa.repository.EntityGraph(
+//
+//            attributePaths = { "address" },
+//            type = org.springframework.data.jpa.repository.EntityGraph.EntityGraphType.FETCH
+//    )
+//    Page<Person> findAllWithAddress(Pageable pageable);
+
+    @SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
+    default Page<Person> findAllWithAddress(Pageable pageable) {
+        EntityGraph<Person> graph = getEntityManager().createEntityGraph(Person.class);
+        graph.addSubgraph("address"); // tell JPA to fetch the address
+
+        Query countQuery = getEntityManager().createQuery("select count(*) from " + Person.class.getSimpleName());
+        TypedQuery<Person> query = getEntityManager()
+                .createQuery("select p from " + Person.class.getSimpleName() + " p", Person.class)
+                .setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .setHint("javax.persistence.fetchgraph", graph);
+//        PageableExecutionUtils.getPage()
+        return new PageImpl(query.getResultList(), pageable, (long) countQuery.getSingleResult());
+    }
+
 }

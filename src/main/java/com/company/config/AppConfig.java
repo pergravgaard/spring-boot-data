@@ -7,10 +7,9 @@ import com.company.repository.jpa.PersonRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.*;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
@@ -21,18 +20,24 @@ import java.util.TimeZone;
 //        @PropertySource(value = {"classpath:h2.properties", "classpath:h2-${env}.properties"}, ignoreResourceNotFound = true)
 })
 @EnableAutoConfiguration(exclude = {
-        //RepositoryRestMvcAutoConfiguration.class,
+        RepositoryRestMvcAutoConfiguration.class,
         DataSourceAutoConfiguration.class,
         JpaRepositoriesAutoConfiguration.class
 })
-@EnableWebMvc
-@EnableHypermediaSupport(type = {EnableHypermediaSupport.HypermediaType.HAL})
+//@EnableWebMvc
+//@EnableEntityLinks
+//@EnableHypermediaSupport(type = {EnableHypermediaSupport.HypermediaType.HAL})
 @Import({JpaDataSourceConfig.class, JpaConfig.class, SwaggerConfig.class/*, BaseConfig.class, JacksonConfig.class, RestConfig.class, SwaggerConfig.class*/})
 public class AppConfig {
 
     static {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC")); // use UTC timezone through out the application
     }
+
+//    @Bean
+//    public ServletWebServerFactory servletWebServerFactory(){
+//        return new TomcatServletWebServerFactory();
+//    }
 
 	@Bean
 	public CommandLineRunner bootstrap(AddressRepository addressRepository, PersonRepository personRepository) {

@@ -9,12 +9,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -64,6 +69,17 @@ public class PersonRepositoryTest {
         kim.setAddress(address);
         personRepository.save(kim);
 
+        List<Person> persons = new ArrayList<>();
+        List<String> lastNames = Arrays.asList("Andersen", "Christensen", "Damgaard", "Espersen", "Frederiksen");
+        for (int i = 0; i < lastNames.size(); i++) {
+            Person p = new Person();
+            p.setFirstName("First" + i);
+            p.setLastName(lastNames.get(i));
+            p.setBirthDateTime(utcPointInTime.withNano(0).withSecond(0).plusYears(25).withZoneSameLocal(ZoneOffset.ofHours(-7)));
+            p.setAddress(address);
+            persons.add(p);
+        }
+        personRepository.saveAll(persons);
     }
 
     @After
@@ -158,6 +174,39 @@ public class PersonRepositoryTest {
         List<Person> persons = personRepository.findAllByLastName("Bauer");
         Person personWithAddress = personRepository.getPersonWithAddressById(persons.get(0).getId());
         assertNotNull(personWithAddress.getAddress().getStreet());
+    }
+
+    @Test
+    public void testFindAllWithAddress() {
+        Page<Person> persons = personRepository.findAllWithAddress(PageRequest.of(1, 3));
+        assertEquals(7, persons.getTotalElements());
+        assertEquals(3, persons.getTotalPages());
+        assertEquals(Sort.unsorted(), persons.getSort());
+        assertEquals(3, persons.getSize());
+        assertEquals(3, persons.getNumberOfElements());
+        assertEquals(1, persons.getNumber());
+
+        persons = personRepository.findAllWithAddress(PageRequest.of(0, 3));
+        assertEquals(7, persons.getTotalElements());
+        assertEquals(3, persons.getTotalPages());
+        assertEquals(Sort.unsorted(), persons.getSort());
+        assertEquals(3, persons.getSize());
+        assertEquals(3, persons.getNumberOfElements());
+        assertEquals(0, persons.getNumber());
+
+        persons = personRepository.findAllWithAddress(PageRequest.of(2, 3));
+        assertEquals(7, persons.getTotalElements());
+        assertEquals(3, persons.getTotalPages());
+        assertEquals(Sort.unsorted(), persons.getSort());
+        assertEquals(3, persons.getSize());
+        assertEquals(1, persons.getNumberOfElements());
+        assertEquals(2, persons.getNumber());
+
+        persons.forEach(person -> {
+            assertNotNull(person.getAddress().getStreet());
+            System.out.println(person.getLastName() + ", " + person.getFirstName());
+        });
+
     }
 
 }
