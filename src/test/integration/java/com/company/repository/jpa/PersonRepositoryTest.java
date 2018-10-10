@@ -30,6 +30,7 @@ public class PersonRepositoryTest {
 
     private LocalDateTime localDateTime;
     private ZonedDateTime utcPointInTime;
+    private List<String> lastNames;
 
     @Autowired
     private PersonRepository personRepository;
@@ -70,7 +71,7 @@ public class PersonRepositoryTest {
         personRepository.save(kim);
 
         List<Person> persons = new ArrayList<>();
-        List<String> lastNames = Arrays.asList("Andersen", "Christensen", "Damgaard", "Espersen", "Frederiksen");
+        lastNames = Arrays.asList("Andersen", "Christensen", "Damgaard", "Espersen", "Frederiksen");
         for (int i = 0; i < lastNames.size(); i++) {
             Person p = new Person();
             p.setFirstName("First" + i);
@@ -198,6 +199,45 @@ public class PersonRepositoryTest {
         assertEquals(7, persons.getTotalElements());
         assertEquals(3, persons.getTotalPages());
         assertEquals(Sort.unsorted(), persons.getSort());
+        assertEquals(3, persons.getSize());
+        assertEquals(1, persons.getNumberOfElements());
+        assertEquals(2, persons.getNumber());
+
+        persons.forEach(person -> {
+            assertNotNull(person.getAddress().getStreet());
+            System.out.println(person.getLastName() + ", " + person.getFirstName());
+        });
+
+    }
+
+    @Test
+    public void testFindAllWithAddressSorted() {
+        Sort sort = new Sort(Sort.Direction.DESC, "lastName", "firstName");
+        Page<Person> persons = personRepository.findAllWithAddress(PageRequest.of(1, 3, sort));
+        assertEquals(7, persons.getTotalElements());
+        assertEquals(3, persons.getTotalPages());
+        assertEquals(sort, persons.getSort());
+        assertEquals(3, persons.getSize());
+        assertEquals(3, persons.getNumberOfElements());
+        assertEquals(1, persons.getNumber());
+
+        persons = personRepository.findAllWithAddress(PageRequest.of(0, 3, sort));
+        assertEquals(7, persons.getTotalElements());
+        assertEquals(3, persons.getTotalPages());
+        assertEquals(sort, persons.getSort());
+        assertEquals(3, persons.getSize());
+        assertEquals(3, persons.getNumberOfElements());
+        assertEquals(0, persons.getNumber());
+        persons.forEach(person -> {
+            assertNotNull(person.getAddress().getStreet());
+            System.out.println(person.getLastName() + ", " + person.getFirstName());
+        });
+        assertEquals(lastNames.get(0), persons.getContent().get(0).getLastName());
+
+        persons = personRepository.findAllWithAddress(PageRequest.of(2, 3, sort));
+        assertEquals(7, persons.getTotalElements());
+        assertEquals(3, persons.getTotalPages());
+        assertEquals(sort, persons.getSort());
         assertEquals(3, persons.getSize());
         assertEquals(1, persons.getNumberOfElements());
         assertEquals(2, persons.getNumber());

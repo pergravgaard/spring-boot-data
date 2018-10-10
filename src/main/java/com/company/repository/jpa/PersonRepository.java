@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityGraph;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 //@RepositoryRestResource(collectionResourceRel="person", path="person")
@@ -60,13 +62,26 @@ public interface PersonRepository extends GenericJpaRepository<Person, Long> {
         graph.addSubgraph("address"); // tell JPA to fetch the address
 
         Query countQuery = getEntityManager().createQuery("select count(*) from " + Person.class.getSimpleName());
-        TypedQuery<Person> query = getEntityManager()
-                .createQuery("select p from " + Person.class.getSimpleName() + " p", Person.class)
-                .setFirstResult((int) pageable.getOffset())
-                .setMaxResults(pageable.getPageSize())
-                .setHint("javax.persistence.fetchgraph", graph);
-//        PageableExecutionUtils.getPage()
-        return new PageImpl(query.getResultList(), pageable, (long) countQuery.getSingleResult());
+        String hql = "select p from " + Person.class.getSimpleName() + " p";
+        if (pageable.getSort() != null) {
+            hql += " order by ";
+            while (pageable.getSort().iterator().hasNext()) {
+                hql += " " + pageable.getSort().iterator().next().getProperty();
+            }
+        }
+        CriteriaQuery<Person> query = getEntityManager().getCriteriaBuilder().createQuery(Person.class);
+        if (pageable.getSort() != null) {
+//            List<Order> orders = new ArrayList<>();
+//            pageable.getSort().getOrderFor(pageable.getSort().)
+//            pageable.getSort().iterator().forEachRemaining(order -> orders.add(order.get));
+            query.orderBy(pageable.getSort().stream().collect(Collectors.toList()));
+        }
+        TypedQuery<Person> typedQuery = getEntityManager()
+                                            .createQuery(query)
+                                            .setFirstResult((int) pageable.getOffset())
+                                            .setMaxResults(pageable.getPageSize())
+                                            .setHint("javax.persistence.fetchgraph", graph);
+        return new PageImpl(typedQuery.getResultList(), pageable, (long) countQuery.getSingleResult());
     }
 
 }
