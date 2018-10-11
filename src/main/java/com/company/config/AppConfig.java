@@ -11,8 +11,14 @@ import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoCon
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 @ComponentScan("com.company")
 @PropertySources({
@@ -66,6 +72,22 @@ public class AppConfig {
             kim.setBirthDateTime(now.withNano(0).withSecond(0).minusYears(20));
             kim.setAddress(address);
             personRepository.save(kim);
+
+            LocalDateTime localDateTime = LocalDateTime.of(1971, 12, 10, 14, 15);
+            ZonedDateTime utcPointInTime = ZonedDateTime.of(localDateTime, ZoneOffset.UTC);
+
+            List<Person> persons = new ArrayList<>();
+            List<String> lastNames = Arrays.asList("Andersen", "Christensen", "Damgaard", "Espersen", "Frederiksen", "Gaardbo", "Hansen", "Ibsen", "Jakobsen", "Karlsen", "Ladefoged", "Mortensen", "Nielsen", "Olsen", "Petersen", "Quist", "Rasmussen", "Sørensen", "Thomsen", "Udsen", "Villadsen", "Westergaard");
+            persons.addAll(lastNames.stream().map(s -> {
+                Person p = new Person();
+                p.setFirstName("Firstname");
+                p.setLastName(s);
+                p.setBirthDateTime(utcPointInTime.withNano(0).withSecond(0).plusYears(25).withZoneSameLocal(ZoneOffset.ofHours(-7)));
+                p.setAddress(address);
+                return p;
+            }).collect(Collectors.toList()));
+            personRepository.saveAll(persons);
+
 
         };
     }

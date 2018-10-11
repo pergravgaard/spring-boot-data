@@ -162,6 +162,10 @@ public class RestConfig extends RepositoryRestMvcConfiguration {
         private Optional<Long> getLastModifiedInMilliseconds(Object object) {
 
             return auditableBeanWrapperFactory.getBeanWrapperFor(object)
+//                    .flatMap(auditableBeanWrapper -> {
+//                        System.out.println(auditableBeanWrapper);
+//                        return auditableBeanWrapper.getLastModifiedDate();
+//                    })
                     .flatMap(AuditableBeanWrapper::getLastModifiedDate)
                     //.map(it -> conversionService.convert(it, Date.class)) // this line is obsolete and actually causes problems
                     .map(it -> conversionServiceObjectFactory.getObject().convert(it, Instant.class))

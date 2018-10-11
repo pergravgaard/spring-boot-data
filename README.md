@@ -3,8 +3,10 @@
 
 - Spring Data Solr
 - Test Rest Controller
+- Swagger detect auto created REST controllers
+- REST fetch lazy loaded relations
 - REST Error Handling
-- REST prevent exposure of method
+- REST prevent exposure of method DONE
 - REST expose a method DONE
 - How many conversion services in Spring?
 - REST: Convert ZonedDateTime. WORKAROUND - CREATE BUG REPORT
