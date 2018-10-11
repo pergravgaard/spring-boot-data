@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/persons")
 @ExposesResourceFor(Person.class)
-public class PersonController extends AbstractRestController<PersonSupport, Person, Long> {
+public class PersonRestController extends AbstractRestController<PersonSupport, Person, Long> {
 
     @Autowired
     private PersonRepository personRepository;

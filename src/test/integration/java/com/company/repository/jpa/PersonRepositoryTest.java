@@ -111,7 +111,6 @@ public class PersonRepositoryTest {
         personRepository.save(jack);
 
         jack = personRepository.findById(jack.getId()).get();
-//        jack = personRepository.findFirstByFirstNameAndLastName("Jacko", "Bauer");
 
         assertTrue(jack.getCreatedDateTime().isBefore(jack.getLastModifiedDateTime()));
         assertEquals(1, jack.getVersion().intValue());
@@ -212,27 +211,37 @@ public class PersonRepositoryTest {
 
     @Test
     public void testFindAllWithAddressSorted() {
-        Sort sort = new Sort(Sort.Direction.DESC, "lastName", "firstName");
-        Page<Person> persons = personRepository.findAllWithAddress(PageRequest.of(1, 3, sort));
-        assertEquals(7, persons.getTotalElements());
-        assertEquals(3, persons.getTotalPages());
-        assertEquals(sort, persons.getSort());
-        assertEquals(3, persons.getSize());
-        assertEquals(3, persons.getNumberOfElements());
-        assertEquals(1, persons.getNumber());
-
-        persons = personRepository.findAllWithAddress(PageRequest.of(0, 3, sort));
+        Sort sort = Sort.by(
+                new Sort.Order(Sort.Direction.ASC, "lastName"),
+                new Sort.Order(Sort.Direction.DESC, "firstName")
+        );
+        Page<Person> persons = personRepository.findAllWithAddress(PageRequest.of(0, 3, sort));
         assertEquals(7, persons.getTotalElements());
         assertEquals(3, persons.getTotalPages());
         assertEquals(sort, persons.getSort());
         assertEquals(3, persons.getSize());
         assertEquals(3, persons.getNumberOfElements());
         assertEquals(0, persons.getNumber());
+        assertEquals(lastNames.get(0), persons.getContent().get(0).getLastName());
+        assertEquals("Kim", persons.getContent().get(1).getFirstName());
         persons.forEach(person -> {
             assertNotNull(person.getAddress().getStreet());
-            System.out.println(person.getLastName() + ", " + person.getFirstName());
+//            System.out.println(person.getLastName() + ", " + person.getFirstName());
         });
-        assertEquals(lastNames.get(0), persons.getContent().get(0).getLastName());
+
+        persons = personRepository.findAllWithAddress(PageRequest.of(1, 3, sort));
+        assertEquals(7, persons.getTotalElements());
+        assertEquals(3, persons.getTotalPages());
+        assertEquals(sort, persons.getSort());
+        assertEquals(3, persons.getSize());
+        assertEquals(3, persons.getNumberOfElements());
+        assertEquals(1, persons.getNumber());
+        assertEquals(lastNames.get(1), persons.getContent().get(0).getLastName());
+        persons.forEach(person -> {
+            assertNotNull(person.getAddress().getStreet());
+//            System.out.println(person.getLastName() + ", " + person.getFirstName());
+        });
+
 
         persons = personRepository.findAllWithAddress(PageRequest.of(2, 3, sort));
         assertEquals(7, persons.getTotalElements());
@@ -244,7 +253,7 @@ public class PersonRepositoryTest {
 
         persons.forEach(person -> {
             assertNotNull(person.getAddress().getStreet());
-            System.out.println(person.getLastName() + ", " + person.getFirstName());
+//            System.out.println(person.getLastName() + ", " + person.getFirstName());
         });
 
     }

@@ -27,7 +27,7 @@ import java.util.TimeZone;
 //@EnableWebMvc
 //@EnableEntityLinks
 //@EnableHypermediaSupport(type = {EnableHypermediaSupport.HypermediaType.HAL})
-@Import({JpaDataSourceConfig.class, JpaConfig.class, SwaggerConfig.class/*, BaseConfig.class, JacksonConfig.class, RestConfig.class, SwaggerConfig.class*/})
+@Import({JpaDataSourceConfig.class, JpaConfig.class, RestConfig.class, SwaggerConfig.class/*, BaseConfig.class, JacksonConfig.class, RestConfig.class, SwaggerConfig.class*/})
 public class AppConfig {
 
     static {

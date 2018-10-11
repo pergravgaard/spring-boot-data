@@ -29,6 +29,13 @@ public abstract class AbstractRestController<R extends ResourceSupport, E extend
         return new ResponseEntity<>(resourceSupportInstance, HttpStatus.OK);
     }
 
+//    public HttpEntity<Page<R>> findAll() {
+//        PageRequest pageRequest = PageRequest.of(0, 3);
+//        Page<E> all = getRepository().findAll(pageRequest);
+//        Page<R> list = all.set;
+//        return new ResponseEntity<>(list, HttpStatus.OK);
+//    }
+
     @RequestMapping(path = "", produces = {"application/hal+json", "application/json"}, method = RequestMethod.GET)
     public HttpEntity<List<R>> list() {
         List<R> list = getRepository().findAll().stream().map(this::getResourceSupportInstance).collect(Collectors.toList());
