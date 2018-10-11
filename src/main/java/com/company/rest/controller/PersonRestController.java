@@ -5,13 +5,10 @@ import com.company.repository.jpa.GenericJpaRepository;
 import com.company.repository.jpa.PersonRepository;
 import com.company.rest.support.PersonSupport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/persons")
-@ExposesResourceFor(Person.class)
+//@RestController
+//@RequestMapping("/persons")
+//@ExposesResourceFor(Person.class)
 public class PersonRestController extends AbstractRestController<PersonSupport, Person, Long> {
 
     @Autowired

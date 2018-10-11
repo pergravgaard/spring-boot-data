@@ -3,6 +3,9 @@
 
 - Spring Data Solr
 - Test Rest Controller
+- REST Error Handling
+- REST prevent exposure of method
+- REST expose a method DONE
 - How many conversion services in Spring?
 - REST: Convert ZonedDateTime. WORKAROUND - CREATE BUG REPORT
 - getOne (getReference and lazy initialization exception) DONE
@@ -74,3 +77,4 @@ This pattern should be avoided at all costs.
 - Don't use java.util.Date (https://programminghints.com/2017/05/still-using-java-util-date-dont/)
 - Resource Naming (https://restfulapi.net/resource-naming/)
 - JAX-RS vs Spring MVC (https://dzone.com/articles/7-reasons-i-do-not-use-jax-rs-in-spring-boot-web-a)
+- Spring REST HAL (https://www.baeldung.com/spring-rest-hal)

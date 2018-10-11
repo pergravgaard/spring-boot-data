@@ -4,6 +4,7 @@ package com.company.repository.jpa;
 import com.company.model.jpa.Person;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +17,11 @@ import java.util.Map;
 @Repository
 public interface PersonRepository extends GenericJpaRepository<Person, Long> {
 
+    @RestResource(rel = "find-by-last", path="find-by-last")
     // no transactional annotation needed here, but the implementation will be transactional
     List<Person> findAllByLastName(String lastName); // no implementation needed - Spring will implement it by looking at method name
 
+    @RestResource(rel = "find-by-first-and-last", path="find-by-first-and-last")
     // no transactional annotation needed here, but the implementation will be transactional
     Person findFirstByFirstNameAndLastName(String firstName, String lastName); // no implementation needed - Spring will implement it by looking at method name
 
@@ -39,9 +42,16 @@ public interface PersonRepository extends GenericJpaRepository<Person, Long> {
         return getEntityManager().find(Person.class, id, hints);
     }
 
+    // won't be exported by Rest due to not following naming convention
     @Transactional(readOnly = true)
     default Page<Person> findAllWithAddress(Pageable pageable) {
         return findAllWithHints(pageable, Person.class, "address");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    default Page<Person> findAll(Pageable pageable) {
+        return findAllWithAddress(pageable);
     }
 
 }
