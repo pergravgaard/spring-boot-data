@@ -3,7 +3,7 @@ Branch: spring-boot-data-jpa-only:
 - Spring: Log4J2
 - Spring: Transactional JPA & Bean Validation
 - Spring: Remove "magical" auto configuration
-- Spring: Liquibase
+- Spring: Liquibase & Hibernate Schema Generator
 
 
 #Introduction
