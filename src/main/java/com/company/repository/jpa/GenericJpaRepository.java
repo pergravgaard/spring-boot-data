@@ -30,6 +30,13 @@ public interface GenericJpaRepository<T extends Persistable, ID extends Serializ
 
     EntityManager getEntityManager();
 
+    /**
+     * Generic implementation for paginating all lazy-loaded relations via hints for the entity graph
+     * @param pageable
+     * @param entityClass
+     * @param subGraphAttributes
+     * @return
+     */
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     default Page<T> findAllWithHints(Pageable pageable, Class<T> entityClass, String... subGraphAttributes) {

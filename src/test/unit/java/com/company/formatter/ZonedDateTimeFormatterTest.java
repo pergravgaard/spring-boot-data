@@ -89,7 +89,6 @@ public class ZonedDateTimeFormatterTest {
         ZonedDateTime now = ZonedDateTime.now();
 
         String actual = zonedDateTimeFormatter.print(now, null);
-        System.out.println("ACTUAL: " + actual);
         assertTrue(actual.endsWith(":00"));
     }
 
