@@ -14,14 +14,7 @@
 - disable Open In Session View. DONE
 - Check ZonedDateTime in DB. DONE
 
-Branch: spring-boot-data-jpa-only:
-
-- Spring: Log4J2
-- Spring: Transactional JPA & Bean Validation
-- Spring: Remove "magical" auto configuration
-- Spring: Liquibase
-
-#Introduction
+# Introduction
 
 This project shows how to use Spring Data as the JPA layer and how to configure Spring manually, i.e. getting rid of the auto configuration.
 
@@ -30,18 +23,24 @@ Furthermore we'll learn how to use the new java.time classes in JPA and in JPA a
 Some people dislikes Spring due to the "magic" of how easy it is to get started on a project.
 Of course there is no magic to it, but just a lot of sensible default configuration for each layer/component in your application.
 
-So if you do not have any custom needs with Spring Boot, you're done.
+So if you do not have any custom needs, you're up and running in no time with Spring Boot.
 
 But at the end of the day you always have custom needs that requires changes in the default configuration of every layer.
 
 So we'll disable the default configuration of the JPA layer and configure it manually.
 Not by XML though, but pure Java classes only. Except from a few property files.
 
+## Branch: spring-boot-data-jpa-only:
+
+- Spring: Log4J2
+- Spring: Transactional JPA & Bean Validation
+- Spring: Remove "magical" auto configuration
+- Spring: Liquibase & Hibernate Schema Generator
 
 -----
 
 
-#Running the application
+# Running the application
 
 We'll show how to run your application.
 For more information visit https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-running-your-application.html
@@ -76,7 +75,7 @@ This pattern should be avoided at all costs.
 
 Use Hibernates reflection classes to create sql files based on your entities
 
-#Other Resources
+# Other Resources
 
 - Spring (https://spring.io)
 - Spring Projects (https://spring.io/projects)
