@@ -8,12 +8,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
+import org.springframework.validation.Validator;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -28,9 +33,13 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = TestConfig.class)
 public class PersonRepositoryTest {
 
-    private LocalDateTime localDateTime;
-    private ZonedDateTime utcPointInTime;
     private List<String> lastNames;
+
+    @Autowired
+    private Validator validator;
+
+    @Autowired
+    private ConversionService conversionService;
 
     @Autowired
     private PersonRepository personRepository;
@@ -40,8 +49,8 @@ public class PersonRepositoryTest {
 
     @Before
     public void setUp() {
-        localDateTime = LocalDateTime.of(1971, 12, 10, 14, 15);
-        utcPointInTime = ZonedDateTime.of(localDateTime, ZoneOffset.UTC);
+        LocalDateTime localDateTime = LocalDateTime.of(1971, 12, 10, 14, 15);
+        ZonedDateTime utcPointInTime = ZonedDateTime.of(localDateTime, ZoneOffset.UTC);
 
         Address address = new Address();
         address.setStreet("Hollywood Avenue");
@@ -255,6 +264,40 @@ public class PersonRepositoryTest {
             assertNotNull(person.getAddress().getStreet());
 //            System.out.println(person.getLastName() + ", " + person.getFirstName());
         });
+
+    }
+
+    @Test
+    public void testValidation() {
+        Person person = new Person();
+        person.setFirstName("");
+        DataBinder dataBinder = new DataBinder(person);
+        BindingResult bindingResult = dataBinder.getBindingResult();
+        validator.validate(person, bindingResult);
+        assertEquals(3, bindingResult.getFieldErrorCount());
+        assertNotNull(bindingResult.getFieldError("firstName"));
+        assertNotNull(bindingResult.getFieldError("lastName"));
+        assertNotNull(bindingResult.getFieldError("birthDateTime"));
+    }
+
+    @Test
+    public void testZonedDateTimeConversion() {
+        final String firstName = "John";
+        final String lastName = "Doe";
+        Person person = new Person();
+        DataBinder dataBinder = new DataBinder(person);
+        dataBinder.setConversionService(conversionService);
+        MutablePropertyValues mpv = new MutablePropertyValues();
+        mpv.add("firstName", firstName);
+        mpv.add("lastName", lastName);
+        mpv.add("birthDateTime", "2001-12-31T10:15:30+01:00");
+        dataBinder.bind(mpv);
+        BindingResult bindingResult = dataBinder.getBindingResult();
+        validator.validate(person, bindingResult);
+        assertEquals(0, bindingResult.getErrorCount());
+        LocalDateTime localDateTime = LocalDateTime.of(2001, 12, 31, 10, 15, 30);
+        ZonedDateTime birthDateTime = ZonedDateTime.of(localDateTime, ZoneOffset.ofHours(1));
+        assertEquals(birthDateTime, person.getBirthDateTime());
 
     }
 

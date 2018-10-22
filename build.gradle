@@ -1,12 +1,12 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.5.RELEASE'
+		springBootVersion = '2.0.6.RELEASE'
 	}
 	repositories {
-//		maven {
-//			url "http://jenkins.jysk.local:7070/artifactory/repo/"
-//		}
-		mavenCentral()
+		maven {
+			url "http://jenkins.jysk.local:7070/artifactory/repo/"
+		}
+//		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -14,20 +14,12 @@ buildscript {
 	}
 }
 
-//plugins {
-//    id 'org.liquibase.gradle' version '2.0.1'
-//}
-
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply from: 'versions.gradle'
 apply from: 'java-groovy-test-structure.gradle'
-//apply plugin: 'war'
-
-
-//archivesBaseName = 'ROOT' // dictate the name of the artifact - default is project folder name
 
 group = 'com.company'
 version = '0.0.1-SNAPSHOT'
@@ -36,34 +28,29 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-	mavenCentral()
-//    maven {
-//        url "http://jenkins.jysk.local:7070/artifactory/repo/"
-//    }
+//	mavenCentral()
+    maven {
+        url "http://jenkins.jysk.local:7070/artifactory/repo/"
+    }
 }
 
 dependencies {
-
-    //compileOnly 'org.projectlombok:lombok:1.18.2'
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4j2Version
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4j2Version
     compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: log4j2Version // this dependency is necessary to control logging for org.springframework
 
-    //compile "org.springframework.boot:spring-boot-starter-mail:${bootVersion}"
-
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-    compile 'org.springframework.boot:spring-boot-starter-data-rest'
-//	compile 'org.springframework.boot:spring-boot-starter-hateoas'
+//    compile 'javax.validation:validation-api:2.0.1.Final'
+    compile 'org.hibernate:hibernate-java8:5.3.7.Final'
+    compile 'org.hibernate:hibernate-validator:6.0.12.Final'
+    compile 'javax.el:javax.el-api:3.0.0'
+    compile 'org.glassfish:javax.el:3.0.0'
 
     compile 'org.liquibase:liquibase-core:3.6.2'
 
 //    liquibaseRuntime 'org.liquibase:liquibase-core:3.6.2'
 //    liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:2.0.1'
-
-	compile 'io.springfox:springfox-swagger2:2.9.2'
-    compile 'io.springfox:springfox-data-rest:2.9.2'
-    compile 'io.springfox:springfox-swagger-ui:2.9.2'
 
 	compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
 
@@ -71,6 +58,7 @@ dependencies {
     runtime "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+    
 //	testImplementation(
 //			'org.junit.jupiter:junit-jupiter-api:5.1.0'
 //	)

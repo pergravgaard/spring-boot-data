@@ -1,18 +1,11 @@
+Branch: spring-boot-data-jpa-only:
 
-#TODO
+- Spring: Log4J2
+- Spring: Transactional JPA & Bean Validation
+- Spring: Remove "magical" auto configuration
+- Spring: Liquibase
+- Spring: Build customized artifact
 
-- Spring Data Solr
-- Test Rest Controller
-- Swagger detect auto created REST controllers
-- REST fetch lazy loaded relations
-- REST Error Handling
-- REST prevent exposure of method DONE
-- REST expose a method DONE
-- How many conversion services in Spring?
-- REST: Convert ZonedDateTime. WORKAROUND - CREATE BUG REPORT
-- getOne (getReference and lazy initialization exception) DONE
-- disable Open In Session View. DONE
-- Check ZonedDateTime in DB. DONE
 
 #Introduction
 
@@ -23,9 +16,9 @@ Furthermore we'll learn how to use the new java.time classes in JPA and in JPA a
 Some people dislikes Spring due to the "magic" of how easy it is to get started on a project.
 Of course there is no magic to it, but just a lot of sensible default configuration for each layer/component in your application.
 
-So if you do not have any custom needs, you're done.
+So if you do not have any custom needs with Spring Boot, you're done.
 
-But at the end of the day you always have custom needs that requires changes in the default configuration of every layer provided by Spring.
+But at the end of the day you always have custom needs that requires changes in the default configuration of every layer.
 
 So we'll disable the default configuration of the JPA layer and configure it manually.
 Not by XML though, but pure Java classes only. Except from a few property files.

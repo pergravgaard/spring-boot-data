@@ -21,37 +21,4 @@ public class BaseConfig {
         return conversionService;
     }
 
-//    @Bean("mailSender")
-//    public JavaMailSender getJavaMailSender() {
-//        JavaMailSender mailSender = new JavaMailSenderImpl();
-//        mailSender.setHost("smtp.gmail.com");
-//        mailSender.setPort(587);
-//
-//        mailSender.setUsername("username");
-//        mailSender.setPassword("password");
-//
-//        Properties props = mailSender.getJavaMailProperties();
-//        props.put("mail.transport.protocol", "smtp");
-//        props.put("mail.smtp.auth", "true");
-//        props.put("mail.smtp.starttls.enable", "true");
-//        props.put("mail.debug", "true");
-//        return mailSender;
-//    }
-
-//    @Bean
-//    LocalValidatorFactoryBean validator(AutowireCapableBeanFactory autowireCapableBeanFactory) {
-//        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean()
-//        bean.setConstraintValidatorFactory(new SpringConstraintValidatorFactory(autowireCapableBeanFactory))
-//        return bean
-//    }
-
-//    @Bean
-//    javax.validation.Validator validator(AutowireCapableBeanFactory autowireCapableBeanFactory) {
-//        ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
-//                .configure()
-//                .constraintValidatorFactory(new SpringConstraintValidatorFactory(autowireCapableBeanFactory))
-//                .buildValidatorFactory()
-//        return validatorFactory.getValidator()
-//    }
-
 }

@@ -2,11 +2,9 @@ package com.company.repository.jpa;
 
 
 import com.company.model.jpa.Person;
-import com.company.rest.projection.PersonWithAddress;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityGraph;
@@ -15,16 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-//@RepositoryRestResource(collectionResourceRel="person", path="person")
-//@Repository
-@RepositoryRestResource(excerptProjection = PersonWithAddress.class)
+@Repository
 public interface PersonRepository extends GenericJpaRepository<Person, Long> {
 
-    @RestResource(rel = "find-by-last", path="find-by-last")
     // no transactional annotation needed here, but the implementation will be transactional
     List<Person> findAllByLastName(String lastName); // no implementation needed - Spring will implement it by looking at method name
 
-    @RestResource(rel = "find-by-first-and-last", path="find-by-first-and-last")
     // no transactional annotation needed here, but the implementation will be transactional
     Person findFirstByFirstNameAndLastName(String firstName, String lastName); // no implementation needed - Spring will implement it by looking at method name
 
@@ -56,11 +50,6 @@ public interface PersonRepository extends GenericJpaRepository<Person, Long> {
     @Transactional(readOnly = true)
     default Page<Person> findAll(Pageable pageable) {
         return findAllWithAddress(pageable);
-//        Page<Person> page = findAllWithAddress(pageable);
-//        page.getContent().forEach(person -> {
-//            System.out.println(person.getAddress().getStreet());
-//        });
-//        return page;
     }
 
     @Override

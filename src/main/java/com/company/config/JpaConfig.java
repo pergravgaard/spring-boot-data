@@ -43,9 +43,6 @@ public class JpaConfig {
     public synchronized LocalValidatorFactoryBean validator() {
         if (validator == null) {
             LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-//            MessageSource messageSource = applicationContext.getBean("messageSource") as MessageSource
-//
-//            bean.setValidationMessageSource(messageSource)
             // the application context must be set for Validator Factory be set by call to afterPropertiesSet
             bean.setApplicationContext(applicationContext);
             bean.afterPropertiesSet();
