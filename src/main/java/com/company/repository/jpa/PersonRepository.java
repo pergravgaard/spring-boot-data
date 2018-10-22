@@ -24,7 +24,6 @@ public interface PersonRepository extends GenericJpaRepository<Person, Long> {
 
     // See https://www.thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
     @SuppressWarnings("unchecked")
-    // won't be exported by Rest by default due to not following naming convention
     @Transactional(readOnly = true) // the transactional annotation is needed when writing the implementation here
     default Person getPersonWithAddressById(Long id) {
 
@@ -40,7 +39,6 @@ public interface PersonRepository extends GenericJpaRepository<Person, Long> {
         return getEntityManager().find(Person.class, id, hints);
     }
 
-    // won't be exported by Rest due to not following naming convention
     @Transactional(readOnly = true)
     default Page<Person> findAllWithAddress(Pageable pageable) {
         return findAllWithHints(pageable, Person.class, "address");

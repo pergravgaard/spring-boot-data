@@ -4,7 +4,6 @@ Branch: spring-boot-data-jpa-only:
 - Spring: Transactional JPA & Bean Validation
 - Spring: Remove "magical" auto configuration
 - Spring: Liquibase
-- Spring: Build customized artifact
 
 
 #Introduction
