@@ -65,6 +65,10 @@ If using DTO projections anyway as recommended in the article, there's is absolu
 
 This pattern should be avoided at all costs.
 
+# Hibernate Schema Generator
+
+Use Hibernates reflection classes to create sql files based on your entities
+
 #Other Resources
 
 - Spring (https://spring.io)
@@ -80,3 +84,4 @@ This pattern should be avoided at all costs.
 - Resource Naming (https://restfulapi.net/resource-naming/)
 - JAX-RS vs Spring MVC (https://dzone.com/articles/7-reasons-i-do-not-use-jax-rs-in-spring-boot-web-a)
 - Spring REST HAL (https://www.baeldung.com/spring-rest-hal)
+- Spring Boot & Liquibase (https://objectpartners.com/2018/05/09/liquibase-and-spring-boot/)

@@ -16,7 +16,7 @@ configurations {
 
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
         //exclude group: "org.slf4j"
-        //exclude group: "ch.qos.logback"
+        exclude group: "ch.qos.logback"
 
         resolutionStrategy {
 

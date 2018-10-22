@@ -3,16 +3,20 @@ buildscript {
 		springBootVersion = '2.0.5.RELEASE'
 	}
 	repositories {
-		maven {
-			url "http://jenkins.jysk.local:7070/artifactory/repo/"
-		}
-//		mavenCentral()
+//		maven {
+//			url "http://jenkins.jysk.local:7070/artifactory/repo/"
+//		}
+		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         //classpath 'org.junit.platform:junit-platform-gradle-plugin:1.1.0'
 	}
 }
+
+//plugins {
+//    id 'org.liquibase.gradle' version '2.0.1'
+//}
 
 apply plugin: 'java'
 apply plugin: 'groovy'
@@ -22,7 +26,9 @@ apply from: 'versions.gradle'
 apply from: 'java-groovy-test-structure.gradle'
 //apply plugin: 'war'
 
+
 //archivesBaseName = 'ROOT' // dictate the name of the artifact - default is project folder name
+
 group = 'com.company'
 version = '0.0.1-SNAPSHOT'
 
@@ -30,13 +36,15 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-//	mavenCentral()
-    maven {
-        url "http://jenkins.jysk.local:7070/artifactory/repo/"
-    }
+	mavenCentral()
+//    maven {
+//        url "http://jenkins.jysk.local:7070/artifactory/repo/"
+//    }
 }
 
 dependencies {
+
+    //compileOnly 'org.projectlombok:lombok:1.18.2'
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4j2Version
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4j2Version
@@ -47,9 +55,17 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'org.springframework.boot:spring-boot-starter-data-rest'
 //	compile 'org.springframework.boot:spring-boot-starter-hateoas'
+
+    compile 'org.liquibase:liquibase-core:3.6.2'
+
+//    liquibaseRuntime 'org.liquibase:liquibase-core:3.6.2'
+//    liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:2.0.1'
+
 	compile 'io.springfox:springfox-swagger2:2.9.2'
     compile 'io.springfox:springfox-data-rest:2.9.2'
     compile 'io.springfox:springfox-swagger-ui:2.9.2'
+
+	compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
 
 	runtime "com.h2database:h2:${h2Version}"
     runtime "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"

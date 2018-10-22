@@ -2,20 +2,20 @@ package com.company.application;
 
 import com.company.config.AppConfig;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Profile("default")
 @Import(AppConfig.class)
-public class ExampleApplication {
+public class ExampleWarApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		System.setProperty("env", "development");
-		ConfigurableApplicationContext applicationContext = SpringApplication.run(ExampleApplication.class, args);
+		ConfigurableApplicationContext applicationContext = SpringApplication.run(ExampleWarApplication.class, args);
         String[] beanNames = applicationContext.getBeanDefinitionNames();
         Map<String, Object> map = new HashMap<>();
         for (String bName : beanNames) {
@@ -28,5 +28,10 @@ public class ExampleApplication {
         }
         System.out.println("********* "  + (map.get("defaultConversionService") == map.get("mvcConversionService")));
     }
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(ExampleWarApplication.class);
+	}
 
 }

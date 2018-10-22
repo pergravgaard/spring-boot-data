@@ -26,9 +26,10 @@ import java.util.stream.Collectors;
 //        @PropertySource(value = {"classpath:h2.properties", "classpath:h2-${env}.properties"}, ignoreResourceNotFound = true)
 })
 @EnableAutoConfiguration(exclude = {
-        RepositoryRestMvcAutoConfiguration.class,
         DataSourceAutoConfiguration.class,
-        JpaRepositoriesAutoConfiguration.class
+        JpaRepositoriesAutoConfiguration.class,
+        RepositoryRestMvcAutoConfiguration.class
+        //LiquibaseAutoConfiguration.class
 })
 //@EnableWebMvc
 //@EnableEntityLinks
