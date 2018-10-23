@@ -19,23 +19,25 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
-@ComponentScan("com.company")
+@ComponentScan("com.company") // tell Spring which packages to scan for components
 @PropertySources({
         @PropertySource(value = {"classpath:mariadb.properties", "classpath:mariadb-${env}.properties"}, ignoreResourceNotFound = true)
 //        @PropertySource(value = {"classpath:h2.properties", "classpath:h2-${env}.properties"}, ignoreResourceNotFound = true)
 })
-@EnableAutoConfiguration(exclude = {
+@EnableAutoConfiguration(exclude = { // exclude auto configuration
         DataSourceAutoConfiguration.class,
         JpaRepositoriesAutoConfiguration.class
 })
-@Import({JpaDataSourceConfig.class, JpaConfig.class, BaseConfig.class})
+@Import({JpaDataSourceConfig.class, JpaConfig.class, BaseConfig.class}) // use our custom configuration instead
 public class AppConfig {
 
     static {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC")); // use UTC timezone through out the application
     }
 
+    // bootstrap/populate the database
 	@Bean
+    @Profile("development")
 	public CommandLineRunner bootstrap(AddressRepository addressRepository, PersonRepository personRepository) {
 	    return run -> {
             Address address = new Address();
