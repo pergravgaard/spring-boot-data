@@ -3,10 +3,10 @@ buildscript {
 		springBootVersion = '2.0.6.RELEASE'
 	}
 	repositories {
-//		maven {
-//			url "http://jenkins.jysk.local:7070/artifactory/repo/"
-//		}
-		mavenCentral()
+		maven {
+			url "http://jenkins.jysk.local:7070/artifactory/repo/"
+		}
+//		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -28,10 +28,10 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-	mavenCentral()
-//    maven {
-//        url "http://jenkins.jysk.local:7070/artifactory/repo/"
-//    }
+//	mavenCentral()
+    maven {
+        url "http://jenkins.jysk.local:7070/artifactory/repo/"
+    }
 }
 
 dependencies {
@@ -41,18 +41,18 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: log4j2Version // this dependency is necessary to control logging for org.springframework
 
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-//    compile 'javax.validation:validation-api:2.0.1.Final'
-    compile 'org.hibernate:hibernate-java8:5.3.7.Final'
-    compile 'org.hibernate:hibernate-validator:6.0.12.Final'
-    compile 'javax.el:javax.el-api:3.0.0'
-    compile 'org.glassfish:javax.el:3.0.0'
+    compile "javax.validation:validation-api:${validationApiVersion}"
+    compile "org.hibernate:hibernate-java8:${hibernateCoreVersion}"
+    compile "org.hibernate:hibernate-validator:${hibernateValidatorVersion}"
+    compile "javax.el:javax.el-api:${elApiVersion}"
+    compile "org.glassfish:javax.el:${elApiVersion}"
 
-    compile 'org.liquibase:liquibase-core:3.6.2'
+    compile "org.liquibase:liquibase-core:${liquibaseVersion}"
 
 //    liquibaseRuntime 'org.liquibase:liquibase-core:3.6.2'
 //    liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:2.0.1'
 
-	compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
+	compile group: 'org.reflections', name: 'reflections', version: reflectionsVersion
 
 	runtime "com.h2database:h2:${h2Version}"
     runtime "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
