@@ -1,13 +1,15 @@
 ext {
     groovyVersion = '2.5.2'
-    bootVersion = '2.0.5.RELEASE'
     h2Version = '1.4.197'
     mariadbVersion = '2.3.0'
     log4j2Version = '2.11.1'
-    jacksonVersion = '2.9.6'
-    hibernateCoreVersion = '5.3.6.Final'
-    hibernateValidatorVersion = '6.0.12.Final'
+    jacksonVersion = '2.9.7'
+    hibernateCoreVersion = '5.3.7.Final'
+    hibernateValidatorVersion = '6.0.13.Final'
     validationApiVersion = '2.0.1.Final'
+    elApiVersion = '3.0.0'
+    liquibaseVersion = '3.6.2'
+    reflectionsVersion = '0.9.11'
 }
 
 // gradle -q dependencyInsight --dependency groovy --configuration compile

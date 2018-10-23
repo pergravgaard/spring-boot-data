@@ -50,13 +50,11 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4j2Version
     compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: log4j2Version // this dependency is necessary to control logging for org.springframework
 
-    //compile "org.springframework.boot:spring-boot-starter-mail:${bootVersion}"
-
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'org.springframework.boot:spring-boot-starter-data-rest'
 //	compile 'org.springframework.boot:spring-boot-starter-hateoas'
 
-    compile 'org.liquibase:liquibase-core:3.6.2'
+    compile "org.liquibase:liquibase-core:${liquibaseVersion}"
 
 //    liquibaseRuntime 'org.liquibase:liquibase-core:3.6.2'
 //    liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:2.0.1'
@@ -65,12 +63,13 @@ dependencies {
     compile 'io.springfox:springfox-data-rest:2.9.2'
     compile 'io.springfox:springfox-swagger-ui:2.9.2'
 
-	compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
+	compile group: 'org.reflections', name: 'reflections', version: reflectionsVersion
 
 	runtime "com.h2database:h2:${h2Version}"
     runtime "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+    
 //	testImplementation(
 //			'org.junit.jupiter:junit-jupiter-api:5.1.0'
 //	)

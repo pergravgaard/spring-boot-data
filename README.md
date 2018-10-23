@@ -41,7 +41,9 @@ This project is versioned by Git and the different branches are the different "s
 ## Branch: spring-boot-data-jpa-only:
 
 - Gradle: Split test folder into unit and integration
+    - Just apply java-groovy-test-structure.gradle in build.gradle
 - Spring: Log4J2
+    - Apply versions.gradle in build.gradle
 - Spring: JPA
     - Java 8 Time classes and auditing
     - Transactional behavior
