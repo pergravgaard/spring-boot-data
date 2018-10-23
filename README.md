@@ -18,10 +18,16 @@
 
 This project shows how to use Spring Data as the JPA layer and how to configure Spring manually, i.e. getting rid of the auto configuration.
 
-Furthermore we'll learn how to use the new java.time classes in JPA and in JPA auditing.
+Furthermore we'll learn how to use the new Java 8 time classes in JPA and in JPA auditing.
 
-Some people dislikes Spring due to the "magic" of how easy it is to get started on a project.
+Some people dislikes Spring due to the "magic" of how easy it is to get a project up and running.
+They feel like they loose control.
 Of course there is no magic to it, but just a lot of sensible default configuration for each layer/component in your application.
+
+But you do NOT loose control! Everything can be configured.
+Admitted, to customize the configuration can sometimes be time consuming.
+But the people behind Spring has done a great job (and continues to do so) of making this is as easy as possible.
+Furthermore the different Spring projects are Open Source and nowadays there is a lot of documentation and guides out there.
 
 So if you do not have any custom needs, you're up and running in no time with Spring Boot.
 
@@ -30,10 +36,17 @@ But at the end of the day you always have custom needs that requires changes in 
 So we'll disable the default configuration of the JPA layer and configure it manually.
 Not by XML though, but pure Java classes only. Except from a few property files.
 
+This project is versioned by Git and the different branches are the different "steps" in this guide
+
 ## Branch: spring-boot-data-jpa-only:
 
+- Gradle: Split test folder into unit and integration
 - Spring: Log4J2
-- Spring: Transactional JPA & Bean Validation
+- Spring: JPA
+    - Java 8 Time classes and auditing
+    - Transactional behavior
+    - Lazy loaded relations
+    - Bean Validation & Conversion Service
 - Spring: Remove "magical" auto configuration
 - Spring: Liquibase & Hibernate Schema Generator
 
