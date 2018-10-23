@@ -20,6 +20,7 @@ public class Person extends BaseAuditableEntity<String, Long> {
     private String lastName;
 
     @NotNull
+    @Column(nullable = false)
     private ZonedDateTime birthDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)

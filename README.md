@@ -42,7 +42,13 @@ This project is versioned by Git and the different branches are the different "s
 
 - Gradle: Split test folder into unit and integration
     - Just apply java-groovy-test-structure.gradle in build.gradle
+- Spring Bootify your project
+    - Add Gradle plugins and dependencies
+    - Create Java application class
+    - Import Java configuration classes
+    - Add gradle.properties and specify which class Spring Boot should use as the main class (only relevant if more than one class is runnable, i.e. contains a static main method)    
 - Spring: Log4J2
+    - Add Gradle dependencies
     - Apply versions.gradle in build.gradle
 - Spring: JPA
     - Java 8 Time classes and auditing
