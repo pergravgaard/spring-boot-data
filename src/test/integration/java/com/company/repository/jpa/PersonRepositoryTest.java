@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -96,6 +97,27 @@ public class PersonRepositoryTest {
     public void tearDown() {
         personRepository.deleteAll();
         addressRepository.deleteAll();
+    }
+
+    @Test
+    public void testTransactionIsRolledBack() {
+        Person validPerson = new Person();
+        validPerson.setFirstName("Dennis");
+        validPerson.setLastName("Rohan");
+        validPerson.setBirthDateTime(ZonedDateTime.now());
+        Person invalidPerson = new Person();
+        List<Person> persons = new ArrayList<>();
+        persons.add(validPerson);
+        persons.add(invalidPerson);
+        try {
+            // Dennis Rohan will be saved first, but the next person is invalid and will cause the transaction to be rolled back
+            personRepository.saveAll(persons);
+            fail();
+        }
+        catch (DataIntegrityViolationException ex) {
+            // assert that Dennis Rohan wasn't saved after all
+            assertNull(personRepository.findFirstByFirstNameAndLastName("Dennis", "Rohan"));
+        }
     }
 
     @Test
@@ -213,7 +235,7 @@ public class PersonRepositoryTest {
 
         persons.forEach(person -> {
             assertNotNull(person.getAddress().getStreet());
-            System.out.println(person.getLastName() + ", " + person.getFirstName());
+            //System.out.println(person.getLastName() + ", " + person.getFirstName());
         });
 
     }
