@@ -46,13 +46,16 @@ This project is versioned by Git and the different branches are the different "s
     - Add Gradle plugins and dependencies
     - Create Java application class
     - Import Java configuration classes
-    - Add gradle.properties and specify which class Spring Boot should use as the main class (only relevant if more than one class is runnable, i.e. contains a static main method)    
+    - Add gradle.properties and specify which class Spring Boot should use as the main class (only relevant if more than one class is runnable, i.e. contains a static main method)
+    - Exclude auto configuration for JPA and data sources
+    - Manually configure JPA and data sources    
 - Spring: Log4J2
     - Add Gradle dependencies
     - Apply versions.gradle in build.gradle
 - Spring: JPA
     - Java 8 Time classes and auditing
     - Transactional behavior
+    - Autowiring (Dependency Injection) and singleton components (repositories and services)
     - Lazy loaded relations
     - Bean Validation & Conversion Service
 - Spring: Remove "magical" auto configuration

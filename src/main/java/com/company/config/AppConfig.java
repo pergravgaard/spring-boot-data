@@ -47,6 +47,7 @@ public class AppConfig {
 //    }
 
 	@Bean
+    @Profile("development")
 	public CommandLineRunner bootstrap(AddressRepository addressRepository, PersonRepository personRepository) {
 	    return run -> {
             Address address = new Address();
