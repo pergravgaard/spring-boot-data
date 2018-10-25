@@ -4,6 +4,7 @@ import com.company.formatter.BaseDateFormatter;
 import com.company.formatter.BaseDateTimeFormatter;
 import com.company.formatter.ZonedDateTimeFormatter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
@@ -13,7 +14,7 @@ import org.springframework.format.support.FormattingConversionServiceFactoryBean
 import java.util.HashSet;
 import java.util.Set;
 
-//@Configuration
+@Configuration
 public class ConversionServiceProvider {
 
     @Bean

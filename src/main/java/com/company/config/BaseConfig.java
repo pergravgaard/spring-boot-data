@@ -3,6 +3,8 @@ package com.company.config;
 import com.company.formatter.BaseDateFormatter;
 import com.company.formatter.BaseDateTimeFormatter;
 import com.company.formatter.ZonedDateTimeFormatter;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.ConversionService;
@@ -38,6 +40,17 @@ public class BaseConfig {
         object.addFormatter(new BaseDateFormatter());
         object.addFormatter(new ZonedDateTimeFormatter());
         return object;
+    }
+
+    @Bean
+    @Primary
+    public ObjectFactory<ConversionService> mvcConversionService() {
+        return new ObjectFactory<ConversionService>() {
+            @Override
+            public ConversionService getObject() throws BeansException {
+                return null;
+            }
+        };
     }
 
     private Set<Converter<?, ?>> getConverters() {
