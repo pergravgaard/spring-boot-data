@@ -13,7 +13,7 @@ import java.util.TimeZone;
 //        @PropertySource(value = {"classpath:mariadb-test.properties"})
         @PropertySource(value = {"classpath:h2-test.properties"})
 })
-@Import({JpaDataSourceConfig.class, JpaConfig.class})
+@Import({JpaDataSourceConfig.class, JpaConfig.class, BaseConfig.class})
 public class TestConfig {
 
     static {

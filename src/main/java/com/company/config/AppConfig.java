@@ -14,13 +14,12 @@ import org.springframework.context.annotation.*;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
-@ComponentScan("com.company")
+@ComponentScan("com.company") // tell Spring which packages to scan for components
 @PropertySources({
         @PropertySource(value = {"classpath:mariadb.properties", "classpath:mariadb-${env}.properties"}, ignoreResourceNotFound = true)
 //        @PropertySource(value = {"classpath:h2.properties", "classpath:h2-${env}.properties"}, ignoreResourceNotFound = true)
@@ -34,7 +33,7 @@ import java.util.stream.Collectors;
 //@EnableWebMvc
 //@EnableEntityLinks
 //@EnableHypermediaSupport(type = {EnableHypermediaSupport.HypermediaType.HAL})
-@Import({JpaDataSourceConfig.class, JpaConfig.class, RestConfig.class, SwaggerConfig.class/*, BaseConfig.class, JacksonConfig.class, RestConfig.class, SwaggerConfig.class*/})
+@Import({JpaDataSourceConfig.class, JpaConfig.class, BaseConfig.class, SwaggerConfig.class/*, BaseConfig.class, JacksonConfig.class, RestConfig.class, SwaggerConfig.class*/})
 public class AppConfig {
 
     static {
@@ -78,16 +77,15 @@ public class AppConfig {
             LocalDateTime localDateTime = LocalDateTime.of(1971, 12, 10, 14, 15);
             ZonedDateTime utcPointInTime = ZonedDateTime.of(localDateTime, ZoneOffset.UTC);
 
-            List<Person> persons = new ArrayList<>();
             List<String> lastNames = Arrays.asList("Andersen", "Christensen", "Damgaard", "Espersen", "Frederiksen", "Gaardbo", "Hansen", "Ibsen", "Jakobsen", "Karlsen", "Ladefoged", "Mortensen", "Nielsen", "Olsen", "Petersen", "Quist", "Rasmussen", "Sørensen", "Thomsen", "Udsen", "Villadsen", "Westergaard");
-            persons.addAll(lastNames.stream().map(s -> {
+            List<Person> persons = lastNames.stream().map(s -> {
                 Person p = new Person();
                 p.setFirstName("Firstname");
                 p.setLastName(s);
                 p.setBirthDateTime(utcPointInTime.withNano(0).withSecond(0).plusYears(25).withZoneSameLocal(ZoneOffset.ofHours(-7)));
                 p.setAddress(address);
                 return p;
-            }).collect(Collectors.toList()));
+            }).collect(Collectors.toList());
             personRepository.saveAll(persons);
 
 

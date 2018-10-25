@@ -4,22 +4,50 @@ import com.company.formatter.BaseDateFormatter;
 import com.company.formatter.BaseDateTimeFormatter;
 import com.company.formatter.ZonedDateTimeFormatter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.format.support.FormattingConversionServiceFactoryBean;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class BaseConfig {
 
+
     // cannot be in same config class as LocalContainerEntityManagerFactoryBean bean (JpaConfig) - then dependency injection won't work
+//    @Bean
+//    public ConversionService conversionService() {
+//        FormattingConversionService conversionService = new DefaultFormattingConversionService();
+//        //ConversionService object = new FormattingConversionServiceFactoryBean().getObject();
+//        conversionService.addFormatter(new BaseDateTimeFormatter());
+//        conversionService.addFormatter(new BaseDateFormatter());
+//        conversionService.addFormatter(new ZonedDateTimeFormatter());
+//        return conversionService;
+//    }
+
     @Bean
-    public ConversionService conversionService() {
-        FormattingConversionService conversionService = new DefaultFormattingConversionService();
-        //ConversionService object = new FormattingConversionServiceFactoryBean().getObject();
-        conversionService.addFormatter(new BaseDateTimeFormatter());
-        conversionService.addFormatter(new BaseDateFormatter());
-        conversionService.addFormatter(new ZonedDateTimeFormatter());
-        return conversionService;
+    @Primary
+    public ConversionService defaultConversionService() {
+        FormattingConversionServiceFactoryBean bean = new FormattingConversionServiceFactoryBean();
+        bean.setConverters(getConverters());
+        bean.afterPropertiesSet();
+        FormattingConversionService object = bean.getObject();
+        object.addFormatter(new BaseDateTimeFormatter());
+        object.addFormatter(new BaseDateFormatter());
+        object.addFormatter(new ZonedDateTimeFormatter());
+        return object;
     }
+
+    private Set<Converter<?, ?>> getConverters() {
+        Set<Converter<?, ?>> converters = new HashSet<>();
+
+        // add more custom converters, either as spring bean references or directly instantiated
+
+        return converters;
+    }
+
 
 //    @Bean("mailSender")
 //    public JavaMailSender getJavaMailSender() {
