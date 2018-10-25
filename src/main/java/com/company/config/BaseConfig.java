@@ -3,12 +3,13 @@ package com.company.config;
 import com.company.formatter.BaseDateFormatter;
 import com.company.formatter.BaseDateTimeFormatter;
 import com.company.formatter.ZonedDateTimeFormatter;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 
@@ -17,40 +18,29 @@ import java.util.Set;
 
 public class BaseConfig {
 
+    @Autowired(required = false)
+    ObjectFactory<ConversionService> mvcConversionService;
 
     // cannot be in same config class as LocalContainerEntityManagerFactoryBean bean (JpaConfig) - then dependency injection won't work
-//    @Bean
-//    public ConversionService conversionService() {
-//        FormattingConversionService conversionService = new DefaultFormattingConversionService();
-//        //ConversionService object = new FormattingConversionServiceFactoryBean().getObject();
-//        conversionService.addFormatter(new BaseDateTimeFormatter());
-//        conversionService.addFormatter(new BaseDateFormatter());
-//        conversionService.addFormatter(new ZonedDateTimeFormatter());
-//        return conversionService;
-//    }
-
     @Bean
     @Primary
     public ConversionService defaultConversionService() {
-        FormattingConversionServiceFactoryBean bean = new FormattingConversionServiceFactoryBean();
-        bean.setConverters(getConverters());
-        bean.afterPropertiesSet();
-        FormattingConversionService object = bean.getObject();
-        object.addFormatter(new BaseDateTimeFormatter());
-        object.addFormatter(new BaseDateFormatter());
-        object.addFormatter(new ZonedDateTimeFormatter());
-        return object;
-    }
-
-    @Bean
-    @Primary
-    public ObjectFactory<ConversionService> mvcConversionService() {
-        return new ObjectFactory<ConversionService>() {
-            @Override
-            public ConversionService getObject() throws BeansException {
-                return null;
-            }
-        };
+        FormattingConversionService formattingConversionService = null;
+        if (mvcConversionService != null && mvcConversionService.getObject() instanceof DefaultFormattingConversionService) {
+            formattingConversionService = (DefaultFormattingConversionService) mvcConversionService.getObject();
+        }
+        if (formattingConversionService == null) {
+            FormattingConversionServiceFactoryBean bean = new FormattingConversionServiceFactoryBean();
+            bean.afterPropertiesSet();
+            formattingConversionService = bean.getObject();
+        }
+        for (Converter<?, ?> converter : getConverters()) {
+            formattingConversionService.addConverter(converter);
+        }
+        formattingConversionService.addFormatter(new BaseDateTimeFormatter());
+        formattingConversionService.addFormatter(new BaseDateFormatter());
+        formattingConversionService.addFormatter(new ZonedDateTimeFormatter());
+        return formattingConversionService;
     }
 
     private Set<Converter<?, ?>> getConverters() {

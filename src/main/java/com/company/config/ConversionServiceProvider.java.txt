@@ -14,7 +14,7 @@ import org.springframework.format.support.FormattingConversionServiceFactoryBean
 import java.util.HashSet;
 import java.util.Set;
 
-@Configuration
+//@Configuration
 public class ConversionServiceProvider {
 
     @Bean
