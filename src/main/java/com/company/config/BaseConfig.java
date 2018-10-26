@@ -22,17 +22,15 @@ public class BaseConfig {
     @Autowired
     private ApplicationContext applicationContext;
 
-//    @Autowired(required = false)
-//    ObjectFactory<ConversionService> mvcConversionService;
-
     // cannot be in same config class as LocalContainerEntityManagerFactoryBean bean (JpaConfig) - then dependency injection won't work
     @Bean
     @Primary
     @SuppressWarnings("unchecked")
     public ConversionService defaultConversionService() {
+        final String mvcConversionServiceBeanName = "mvcConversionService";
         FormattingConversionService formattingConversionService = null;
-        if (applicationContext != null && applicationContext.getBean("mvcConversionService") instanceof ObjectFactory) {
-            ObjectFactory<ConversionService> factory = (ObjectFactory<ConversionService>) applicationContext.getBean("mvcConversionService");
+        if (applicationContext != null && applicationContext.containsBean(mvcConversionServiceBeanName) && applicationContext.getBean(mvcConversionServiceBeanName) instanceof ObjectFactory) {
+            ObjectFactory<ConversionService> factory = (ObjectFactory<ConversionService>) applicationContext.getBean(mvcConversionServiceBeanName);
             if (factory.getObject() instanceof DefaultFormattingConversionService) {
                 formattingConversionService = (DefaultFormattingConversionService) factory.getObject();
             }
