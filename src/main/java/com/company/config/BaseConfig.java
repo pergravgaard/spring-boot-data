@@ -28,6 +28,7 @@ public class BaseConfig {
     // cannot be in same config class as LocalContainerEntityManagerFactoryBean bean (JpaConfig) - then dependency injection won't work
     @Bean
     @Primary
+    @SuppressWarnings("unchecked")
     public ConversionService defaultConversionService() {
         FormattingConversionService formattingConversionService = null;
         if (applicationContext != null && applicationContext.getBean("mvcConversionService") instanceof ObjectFactory) {
