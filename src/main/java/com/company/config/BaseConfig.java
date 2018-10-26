@@ -5,6 +5,7 @@ import com.company.formatter.BaseDateTimeFormatter;
 import com.company.formatter.ZonedDateTimeFormatter;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.ConversionService;
@@ -18,16 +19,22 @@ import java.util.Set;
 
 public class BaseConfig {
 
-    @Autowired(required = false)
-    ObjectFactory<ConversionService> mvcConversionService;
+    @Autowired
+    private ApplicationContext applicationContext;
+
+//    @Autowired(required = false)
+//    ObjectFactory<ConversionService> mvcConversionService;
 
     // cannot be in same config class as LocalContainerEntityManagerFactoryBean bean (JpaConfig) - then dependency injection won't work
     @Bean
     @Primary
     public ConversionService defaultConversionService() {
         FormattingConversionService formattingConversionService = null;
-        if (mvcConversionService != null && mvcConversionService.getObject() instanceof DefaultFormattingConversionService) {
-            formattingConversionService = (DefaultFormattingConversionService) mvcConversionService.getObject();
+        if (applicationContext != null && applicationContext.getBean("mvcConversionService") instanceof ObjectFactory) {
+            ObjectFactory<ConversionService> factory = (ObjectFactory<ConversionService>) applicationContext.getBean("mvcConversionService");
+            if (factory.getObject() instanceof DefaultFormattingConversionService) {
+                formattingConversionService = (DefaultFormattingConversionService) factory.getObject();
+            }
         }
         if (formattingConversionService == null) {
             FormattingConversionServiceFactoryBean bean = new FormattingConversionServiceFactoryBean();
