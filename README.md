@@ -36,13 +36,13 @@ This project is versioned by Git and the different branches are the different "s
 - Spring: Log4J2
     - Add Gradle dependencies
     - Apply versions.gradle in build.gradle
+- Spring: Remove "magical" auto configuration
 - Spring: JPA
     - Java 8 Time classes and auditing
     - Transactional behavior
     - Autowiring (Dependency Injection) and singleton components (repositories and services)
     - Lazy loaded relations
     - Bean Validation & Conversion Service
-- Spring: Remove "magical" auto configuration
 - Spring: Liquibase & Hibernate Schema Generator
 
 -----
@@ -53,14 +53,15 @@ This project is versioned by Git and the different branches are the different "s
 We'll show how to run your application.
 For more information visit https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-running-your-application.html
 
+Since there is no dependency on any HTTP server, the application will just exit immediately.
+
 ## From your favorite IDE
 
-Just run/debug the class ExampleApplication
-
+Just run/debug the class ExampleApplication or ExampleDevApplication depending on environment.
 
 ## From Gradle Plugin
 
-Just execute `gradle bootRun`
+Just execute `gradle bootRun`. Will use class specified in gradle.properties.
 
 ## As packaged application
 
@@ -68,9 +69,8 @@ Just execute `gradle clean build`
 
 and then `java -jar build/libs/spring-boot-data-0.0.1-SNAPSHOT.jar`
 
-Noticed that you never installed or referred an existing HTTP server?
-
 # Open Session in View Is An Anti-Pattern
+
 
 Read this article on the impact on starting JPA session in HTTP layer:
 https://vladmihalcea.com/the-open-session-in-view-anti-pattern/
