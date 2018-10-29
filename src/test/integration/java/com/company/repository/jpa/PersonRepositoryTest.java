@@ -100,6 +100,15 @@ public class PersonRepositoryTest {
     }
 
     @Test
+    public void testFindAllByLastName() {
+
+        List<Person> theBauers = personRepository.findAllByLastName("Bauer");
+
+        assertNotNull(theBauers);
+        assertEquals(2, theBauers.size());
+    }
+
+    @Test
     public void testTransactionIsRolledBack() {
         Person validPerson = new Person();
         validPerson.setFirstName("Dennis");
@@ -145,15 +154,6 @@ public class PersonRepositoryTest {
 
         assertTrue(jack.getCreatedDateTime().isBefore(jack.getLastModifiedDateTime()));
         assertEquals(1, jack.getVersion().intValue());
-    }
-
-    @Test
-    public void testFindAllByLastName() {
-
-        List<Person> theBauers = personRepository.findAllByLastName("Bauer");
-
-        assertNotNull(theBauers);
-        assertEquals(2, theBauers.size());
     }
 
     @Test(expected = LazyInitializationException.class)
