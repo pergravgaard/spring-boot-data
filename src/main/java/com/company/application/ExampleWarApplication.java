@@ -4,29 +4,15 @@ import com.company.config.AppConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Import;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Import(AppConfig.class)
 public class ExampleWarApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		System.setProperty("env", "development");
-		ConfigurableApplicationContext applicationContext = SpringApplication.run(ExampleWarApplication.class, args);
-        String[] beanNames = applicationContext.getBeanDefinitionNames();
-        Map<String, Object> map = new HashMap<>();
-        for (String bName : beanNames) {
-        	if (bName.contains("onversionService")) {
-
-            	System.out.println("bean: " + bName + ", class: " + applicationContext.getBean(bName).getClass());
-            	map.put(bName, applicationContext.getBean(bName));
-
-			}
-        }
-        System.out.println("********* "  + (map.get("defaultConversionService") == map.get("mvcConversionService")));
+		System.setProperty("env", "production");
+		System.setProperty("spring.profiles.active", "production");
+		SpringApplication.run(ExampleWarApplication.class, args);
     }
 
 	@Override

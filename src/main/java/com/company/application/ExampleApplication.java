@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Import;
 public class ExampleApplication {
 
 	public static void main(String[] args) {
+		System.setProperty("env", "production");
+		System.setProperty("spring.profiles.active", "production");
 		SpringApplication.run(ExampleApplication.class, args);
     }
 

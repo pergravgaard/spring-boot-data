@@ -12,15 +12,14 @@ import java.util.Map;
 public class ExampleDevApplication {
 
 	public static void main(String[] args) {
-		System.setProperty("env", "development");
-		ConfigurableApplicationContext applicationContext = SpringApplication.run(ExampleDevApplication.class, args);
-		applicationContext.getEnvironment().setActiveProfiles("development");
+        System.setProperty("env", "development");
+        System.setProperty("spring.profiles.active", "development");
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(ExampleDevApplication.class, args);
         String[] beanNames = applicationContext.getBeanDefinitionNames();
         Map<String, Object> map = new HashMap<>();
         for (String bName : beanNames) {
-        	if (bName.contains("onversionService")) {
-
             	System.out.println("bean: " + bName + ", class: " + applicationContext.getBean(bName).getClass());
+        	if (bName.contains("onversionService")) {
             	map.put(bName, applicationContext.getBean(bName));
 
 			}

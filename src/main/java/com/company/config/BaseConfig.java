@@ -5,6 +5,7 @@ import com.company.formatter.BaseDateTimeFormatter;
 import com.company.formatter.ZonedDateTimeFormatter;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -25,6 +26,7 @@ public class BaseConfig {
     // cannot be in same config class as LocalContainerEntityManagerFactoryBean bean (JpaConfig) - then dependency injection won't work
     @Bean
     @Primary
+    @ConditionalOnBean(name = "mvcConversionService")
     @SuppressWarnings("unchecked")
     public ConversionService defaultConversionService() {
         final String mvcConversionServiceBeanName = "mvcConversionService";
