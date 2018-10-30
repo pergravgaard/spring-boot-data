@@ -27,6 +27,8 @@ This project is versioned by Git and the different branches are the different "s
 
 - Gradle: Split test folder into unit and integration
     - Just apply java-groovy-test-structure.gradle in build.gradle
+    - New Gradle task: integration
+    - The existing test task now only covers unit tests
 - Spring Bootify your project
     - Add Gradle plugins and dependencies
     - Create Java application class
