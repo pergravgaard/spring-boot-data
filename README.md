@@ -39,17 +39,17 @@ This project is versioned by Git and the different branches are the different "s
 - Spring: Log4J2
     - Add Gradle dependencies
     - Apply versions.gradle in build.gradle
-- Spring: Remove "magical" auto configuration
 - Spring: JPA
     - Java 8 Time classes and auditing
+    - Repositories: conventions for findByXxx and findAllByXxx
+    - Injecting generic repository with access to entity manager and generic pagination with eager fetching of lazy loaded relations  
     - Transactional behavior
     - Autowiring (Dependency Injection) and singleton components (repositories and services)
     - Lazy loaded relations
     - Bean Validation & Conversion Service
 - Spring: Liquibase & Hibernate Schema Generator
 
------
-
+    
 
 # Running the application
 
