@@ -64,8 +64,18 @@ This project is versioned by Git and the different branches are the different "s
     - Bean Validation & Conversion Service
 - Spring: Liquibase & Hibernate Schema Generator
 
------
 
+## Branch: master:
+
+- Spring Data Rest
+    - Rest Config
+    - HAL: implemented out of the box
+    - Projections: class and methods
+    - Prevent exposure of a repository method
+    
+- Spring HATEOAS
+    - to be continued
+    
 
 # Running the application
 
