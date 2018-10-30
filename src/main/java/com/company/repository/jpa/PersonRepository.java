@@ -2,6 +2,7 @@ package com.company.repository.jpa;
 
 
 import com.company.model.jpa.Person;
+import com.company.model.jpa.PersonNameProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
@@ -17,16 +18,17 @@ import java.util.Optional;
 
 //@RepositoryRestResource(collectionResourceRel="person", path="person")
 @Repository
+//@RepositoryRestResource
 //@RepositoryRestResource(excerptProjection = PersonWithAddress.class)
 public interface PersonRepository extends GenericJpaRepository<Person, Long> {
 
     @RestResource(rel = "find-by-last", path="find-by-last")
     // no transactional annotation needed here, but the implementation will be transactional
-    List<Person> findAllByLastName(@Param(value = "lastName") String lastName); // no implementation needed - Spring will implement it by looking at method name
+    List<Person> findAllByLastName(@Param("lastName") String lastName); // no implementation needed - Spring will implement it by looking at method name
 
     @RestResource(rel = "find-by-first-and-last", path="find-by-first-and-last")
     // no transactional annotation needed here, but the implementation will be transactional
-    Person findFirstByFirstNameAndLastName(@Param(value = "firstName") String firstName, @Param(value = "lastName") String lastName); // no implementation needed - Spring will implement it by looking at method name
+    PersonNameProjection findFirstByFirstNameAndLastName(@Param("firstName") String firstName, @Param("lastName") String lastName); // no implementation needed - Spring will implement it by looking at method name
 
     // See https://www.thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
     @SuppressWarnings("unchecked")

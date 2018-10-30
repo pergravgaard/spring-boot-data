@@ -162,6 +162,12 @@ If using DTO projections anyway as recommended in the article, there's is absolu
 
 This pattern should be avoided.
 
+# Embedded Web Server
+
+No need for running exploded war.
+By default an embedded Tomcat server is used.
+This can be change to any web server of your choosing.
+
 # Hypertext Application Language (HAL)
 
 Coming soon...
@@ -186,3 +192,4 @@ Coming soon...
 - HATEOAS Driven REST APIs (https://restfulapi.net/hateoas/)
 - JAX-RS vs Spring MVC (https://dzone.com/articles/7-reasons-i-do-not-use-jax-rs-in-spring-boot-web-a)
 - Spring REST HAL (https://www.baeldung.com/spring-rest-hal)
+- Spring Rest Projections (https://www.baeldung.com/spring-data-rest-projections-excerpts)

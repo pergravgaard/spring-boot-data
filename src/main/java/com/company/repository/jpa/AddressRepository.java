@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
-//@RepositoryRestResource(path="addresses")
-//@RepositoryRestResource(collectionResourceRel="addresses", path="addresses")
 @Api(tags = "Address Entity")
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
