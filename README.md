@@ -61,6 +61,7 @@ This project is versioned by Git and the different branches are the different "s
     - Autowiring (Dependency Injection) and singleton components (repositories and services)
     - Lazy loaded relations
     - Bean Validation & Conversion Service
+    - Integration tests
 - Spring: Liquibase & Hibernate Schema Generator
 
 
