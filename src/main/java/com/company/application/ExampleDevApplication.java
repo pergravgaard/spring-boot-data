@@ -18,10 +18,9 @@ public class ExampleDevApplication {
         String[] beanNames = applicationContext.getBeanDefinitionNames();
         Map<String, Object> map = new HashMap<>();
         for (String bName : beanNames) {
-            	System.out.println("bean: " + bName + ", class: " + applicationContext.getBean(bName).getClass());
+            System.out.println("bean: " + bName + ", class: " + applicationContext.getBean(bName).getClass());
         	if (bName.contains("onversionService")) {
             	map.put(bName, applicationContext.getBean(bName));
-
 			}
         }
         System.out.println("********* "  + (map.get("defaultConversionService") == map.get("mvcConversionService")));

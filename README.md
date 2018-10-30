@@ -55,7 +55,6 @@ This project is versioned by Git and the different branches are the different "s
 - Spring: Log4J2
     - Add Gradle dependencies
     - Apply versions.gradle in build.gradle
-- Spring: Remove "magical" auto configuration
 - Spring: JPA
     - Java 8 Time classes and auditing
     - Transactional behavior
@@ -67,12 +66,14 @@ This project is versioned by Git and the different branches are the different "s
 
 ## Branch: master:
 
+- Gradle dependencies
+- Build a war file instead of a jar file
+    - ExampleWarApplication
 - Spring Data Rest
     - Rest Config
     - HAL: implemented out of the box
     - Projections: class and methods
     - Prevent exposure of a repository method
-    
 - Spring HATEOAS
     - to be continued
     
@@ -97,6 +98,26 @@ The class specified in gradle.properties will be used as the main class.
 Just execute `gradle clean build`
 
 and then `java -jar build/libs/spring-boot-data-0.0.1-SNAPSHOT.jar`
+
+# Build a war file instead of a jar file
+
+Change main class name:
+```
+mainClassName = com.company.application.ExampleWarApplication
+```
+in gradle.properties.
+
+Uncomment the line:
+``` 
+apply plugin: 'war'
+```
+in build.gradle.
+
+If you wish to change the name of the built war file, then uncomment the line:
+```
+archivesBaseName = 'ROOT'
+```
+in build.gradle.
 
 # Hibernate Schema Generator
 
