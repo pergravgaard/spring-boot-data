@@ -7,7 +7,6 @@ import org.springframework.context.annotation.PropertySources;
 
 import java.util.TimeZone;
 
-
 @ComponentScan("com.company")
 @PropertySources({
 //        @PropertySource(value = {"classpath:mariadb-test.properties"})
@@ -17,7 +16,6 @@ import java.util.TimeZone;
 public class TestConfig {
 
     static {
-        //System.setProperty("user.timezone", "GMT");
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
 
