@@ -57,6 +57,8 @@ This project is versioned by Git and the different branches are the different "s
     - Apply versions.gradle in build.gradle
 - Spring: JPA
     - Java 8 Time classes and auditing
+    - Repositories: conventions for findByXxx and findAllByXxx
+    - Injecting generic repository with access to entity manager and generic pagination with eager fetching of lazy loaded relations  
     - Transactional behavior
     - Autowiring (Dependency Injection) and singleton components (repositories and services)
     - Lazy loaded relations
