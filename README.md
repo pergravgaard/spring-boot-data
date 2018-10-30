@@ -43,6 +43,8 @@ This project is versioned by Git and the different branches are the different "s
 
 - Gradle: Split test folder into unit and integration
     - Just apply java-groovy-test-structure.gradle in build.gradle
+    - New Gradle task: integration
+    - The existing test task now only covers unit tests
 - Spring Bootify your project
     - Add Gradle plugins and dependencies
     - Create Java application class
@@ -126,6 +128,9 @@ If using DTO projections anyway as recommended in the article, there's is absolu
 
 This pattern should be avoided.
 
+# Hypertext Application Language (HAL)
+
+Coming soon...
 
 # Other Resources
 
@@ -141,5 +146,9 @@ This pattern should be avoided.
 - Don't use java.util.Date (https://programminghints.com/2017/05/still-using-java-util-date-dont/)
 - Spring Boot & Liquibase (https://objectpartners.com/2018/05/09/liquibase-and-spring-boot/)
 - Resource Naming (https://restfulapi.net/resource-naming/)
+- HAL (https://en.wikipedia.org/wiki/Hypertext_Application_Language)
+- Swagger vs HAL (https://stackoverflow.com/questions/36619122/should-you-combine-swagger-with-hateoas-hal-json-ld)
+- Hypermedia As The Engine Of Application State - HATEOAS (https://en.wikipedia.org/wiki/HATEOAS)
+- HATEOAS Driven REST APIs (https://restfulapi.net/hateoas/)
 - JAX-RS vs Spring MVC (https://dzone.com/articles/7-reasons-i-do-not-use-jax-rs-in-spring-boot-web-a)
 - Spring REST HAL (https://www.baeldung.com/spring-rest-hal)
