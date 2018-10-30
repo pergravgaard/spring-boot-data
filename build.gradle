@@ -28,7 +28,6 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4j2Version
