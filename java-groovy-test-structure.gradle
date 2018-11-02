@@ -20,6 +20,8 @@ sourceSets {
 
 configurations {
 	integrationCompile.extendsFrom testCompile
+	integrationImplementation.extendsFrom testImplementation
+	integrationApi.extendsFrom testApi
 	integrationRuntime.extendsFrom testRuntime
 }
 

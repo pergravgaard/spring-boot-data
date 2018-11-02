@@ -1,5 +1,6 @@
 package com.company.config;
 
+import com.company.config.basic.JpaDataSourceConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
@@ -12,7 +13,7 @@ import java.util.TimeZone;
 //        @PropertySource(value = {"classpath:mariadb-test.properties"})
         @PropertySource(value = {"classpath:h2-test.properties"})
 })
-@Import({JpaDataSourceConfig.class, JpaConfig.class, BaseConfig.class})
+@Import({JpaDataSourceConfig.class, MyJpaConfig.class, BaseConfig.class})
 public class TestConfig {
 
     static {

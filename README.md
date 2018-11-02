@@ -79,6 +79,7 @@ This project is versioned by Git and the different branches are the different "s
     - Prevent exposure of a repository method
 - Spring HATEOAS
     - to be continued
+- Swagger UI
     
 
 # Running the application
@@ -185,6 +186,8 @@ Coming soon...
 - JPA and Java 8 Date Time (https://vladmihalcea.com/whats-new-in-jpa-2-2-java-8-date-and-time-types/)
 - Don't use java.util.Date (https://programminghints.com/2017/05/still-using-java-util-date-dont/)
 - Spring Boot & Liquibase (https://objectpartners.com/2018/05/09/liquibase-and-spring-boot/)
+- Spring Data Rest (https://docs.spring.io/spring-data/rest/docs/current/reference/html/)
+- Spring Rest Tutorial (https://spring.io/guides/tutorials/rest/)
 - Resource Naming (https://restfulapi.net/resource-naming/)
 - HAL (https://en.wikipedia.org/wiki/Hypertext_Application_Language)
 - Swagger vs HAL (https://stackoverflow.com/questions/36619122/should-you-combine-swagger-with-hateoas-hal-json-ld)
@@ -193,3 +196,4 @@ Coming soon...
 - JAX-RS vs Spring MVC (https://dzone.com/articles/7-reasons-i-do-not-use-jax-rs-in-spring-boot-web-a)
 - Spring REST HAL (https://www.baeldung.com/spring-rest-hal)
 - Spring Rest Projections (https://www.baeldung.com/spring-data-rest-projections-excerpts)
+- Spring Rest Projections for collections (https://gigsterous.github.io/engineering/2018/01/26/spring-data-rest-projections.html)

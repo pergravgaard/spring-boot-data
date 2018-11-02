@@ -38,31 +38,53 @@ repositories {
 
 dependencies {
 
-    //compileOnly 'org.projectlombok:lombok:1.18.2'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4j2Version
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4j2Version
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: log4j2Version // this dependency is necessary to control logging for org.springframework
 
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4j2Version
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4j2Version
-    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: log4j2Version // this dependency is necessary to control logging for org.springframework
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+//	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-    compile 'org.springframework.boot:spring-boot-starter-data-rest'
-//	compile 'org.springframework.boot:spring-boot-starter-hateoas'
-
-    compile "org.liquibase:liquibase-core:${liquibaseVersion}"
+    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
 
 //    liquibaseRuntime 'org.liquibase:liquibase-core:3.6.2'
 //    liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:2.0.1'
 
-	compile 'io.springfox:springfox-swagger2:2.9.2'
-    compile 'io.springfox:springfox-data-rest:2.9.2'
-    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+    // Add Swagger UI
+    /* SpringFox begin */
+    
+    // need to wait for version 3
+//	  implementation "io.springfox:springfox-swagger2:${springFoxVersion}"
+//    implementation "io.springfox:springfox-data-rest:${springFoxVersion}"
+//    implementation "io.springfox:springfox-swagger-ui:${springFoxVersion}"
 
-	compile group: 'org.reflections', name: 'reflections', version: reflectionsVersion
+    // but we can't wait that long so add these dependencies
+    implementation "io.swagger:swagger-annotations:1.5.20"
+    implementation "io.swagger:swagger-models:1.5.20"
+    implementation group: 'org.springframework.plugin', name: 'spring-plugin-metadata', version: '1.2.0.RELEASE'
+
+    // and check out Springfox max and run gradle clean build and copy the jars below
+    implementation files('libs/springfox-core-3.0.0-SNAPSHOT.jar')
+    implementation files('libs/springfox-schema-3.0.0-SNAPSHOT.jar')
+    implementation files('libs/springfox-spring-config-3.0.0-SNAPSHOT.jar')
+    implementation files('libs/springfox-spi-3.0.0-SNAPSHOT.jar')
+    implementation files('libs/springfox-spring-web-3.0.0-SNAPSHOT.jar')
+    implementation files('libs/springfox-spring-webmvc-3.0.0-SNAPSHOT.jar')
+    implementation files('libs/springfox-swagger-common-3.0.0-SNAPSHOT.jar')
+    implementation files('libs/springfox-swagger2-3.0.0-SNAPSHOT.jar')
+    implementation files('libs/springfox-data-rest-3.0.0-SNAPSHOT.jar')
+    implementation files('libs/springfox-swagger-ui-3.0.0-SNAPSHOT.jar')
+    
+    /* SpringFox end - now Swagger UI will pickup on your Spring Data Repositories - no need to add @RepositoryRestResource instead of @Repository */
+
+    
+	implementation group: 'org.reflections', name: 'reflections', version: reflectionsVersion
 
 	runtime "com.h2database:h2:${h2Version}"
     runtime "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
 	
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
     
 //	testImplementation(
 //			'org.junit.jupiter:junit-jupiter-api:5.1.0'

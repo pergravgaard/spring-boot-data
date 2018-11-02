@@ -1,5 +1,7 @@
 package com.company.config;
 
+import com.company.config.basic.JpaDataSourceConfig;
+import com.company.config.basic.RestMvcConfig;
 import com.company.model.jpa.Address;
 import com.company.model.jpa.Person;
 import com.company.repository.jpa.AddressRepository;
@@ -19,7 +21,10 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
-@ComponentScan("com.company") // tell Spring which packages to scan for components
+@ComponentScan(value = {
+        "com.company",
+        "springfox.documentation.spring.data.rest"
+}) // tell Spring which packages to scan for components
 @PropertySources({
         @PropertySource(value = {"classpath:mariadb.properties", "classpath:mariadb-${env}.properties"}, ignoreResourceNotFound = true)
 //        @PropertySource(value = {"classpath:h2.properties", "classpath:h2-${env}.properties"}, ignoreResourceNotFound = true)
@@ -28,12 +33,8 @@ import java.util.stream.Collectors;
         DataSourceAutoConfiguration.class,
         JpaRepositoriesAutoConfiguration.class,
         RepositoryRestMvcAutoConfiguration.class
-        //LiquibaseAutoConfiguration.class
 })
-//@EnableWebMvc
-//@EnableEntityLinks
-//@EnableHypermediaSupport(type = {EnableHypermediaSupport.HypermediaType.HAL})
-@Import({JpaDataSourceConfig.class, JpaConfig.class, RestConfig.class, SwaggerConfig.class/*, BaseConfig.class, JacksonConfig.class, RestConfig.class, SwaggerConfig.class*/})
+@Import({JpaDataSourceConfig.class, MyJpaConfig.class, RestMvcConfig.class, SwaggerConfig.class})
 public class AppConfig {
 
     static {
