@@ -1,6 +1,6 @@
 package com.company.application;
 
-import com.company.config.AppConfig;
+import com.company.config.RunConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Import;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 import java.util.HashMap;
 import java.util.Map;
 
-@Import(AppConfig.class)
+@Import(RunConfig.class)
 public class ExampleDevApplication {
 
 	public static void main(String[] args) {

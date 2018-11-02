@@ -1,16 +1,13 @@
 package com.company.config;
 
+import com.company.config.basic.DefaultSwaggerConfig;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
-@EnableSwagger2WebMvc
-public class SwaggerConfig extends WebMvcConfigurationSupport {
+public class SwaggerConfig extends DefaultSwaggerConfig {
 
     @Bean
     public Docket productApi() {
@@ -25,15 +22,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 //                .paths(or(regex("/persons.*"), regex("/addresses.*")))
                 .paths(PathSelectors.any())
                 .build();
-    }
-
-    @Override
-    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
 }

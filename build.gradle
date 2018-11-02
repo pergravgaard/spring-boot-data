@@ -1,9 +1,12 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.6.RELEASE'
+		springBootVersion = '2.1.0.RELEASE'
 	}
 	repositories {
-		mavenCentral()
+		maven {
+			url "http://jenkins.jysk.local:7070/artifactory/repo/"
+		}
+//		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -33,7 +36,10 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+//	mavenCentral()
+    maven {
+        url "http://jenkins.jysk.local:7070/artifactory/repo/"
+    }
 }
 
 dependencies {
@@ -84,8 +90,11 @@ dependencies {
 	runtime "com.h2database:h2:${h2Version}"
     runtime "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
 	
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
-    
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.boot:spring-boot-starter-webflux')
+
+//    testImplementation "org.springframework.restdocs:spring-restdocs-webtestclient:2.0.3.BUILD-SNAPSHOT"
+
 //	testImplementation(
 //			'org.junit.jupiter:junit-jupiter-api:5.1.0'
 //	)

@@ -1,12 +1,12 @@
 package com.company.application;
 
-import com.company.config.AppConfig;
+import com.company.config.RunConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Import;
 
-@Import(AppConfig.class)
+@Import(RunConfig.class)
 public class ExampleWarApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

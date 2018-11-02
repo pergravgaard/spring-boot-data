@@ -20,7 +20,10 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.Properties;
 
-@EnableJpaRepositories(basePackages = "com.company.repository.jpa", repositoryBaseClass = GenericJpaRepositoryImpl.class)
+/**
+ * Generic JPA configuration (except for the condition that packages must begin with 'com')
+ */
+@EnableJpaRepositories(basePackages = "com.*.repository.jpa", repositoryBaseClass = GenericJpaRepositoryImpl.class)
 @EnableJpaAuditing(dateTimeProviderRef = "dateTimeProvider")
 @EnableTransactionManagement
 public class JpaConfig {
@@ -61,11 +64,11 @@ public class JpaConfig {
         vendorAdapter.setGenerateDdl(Boolean.valueOf(env.getProperty("hibernate.hbm2ddl.generate")));
         vendorAdapter.setShowSql(Boolean.valueOf(env.getProperty("hibernate.show_sql")));
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.company.model.jpa");
+        factory.setPackagesToScan("com.*.model.jpa");
         Properties jpaProperties = new Properties();
-        jpaProperties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-        jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        jpaProperties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+        jpaProperties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
+        jpaProperties.put("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
+        jpaProperties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql", "false"));
         jpaProperties.put("javax.persistence.validation.mode", "none"); // disable Hibernator validation - otherwise bean validators will be called twice
         jpaProperties.put("javax.persistence.validation.factory", validator()); // this is necessary for Spring Dependency Injection to work in custom bean validators
 //        jpaProperties.put("hibernate.integrator_provider", (IntegratorProvider) { // cast Closure instance to IntegrationProvider instance - in Groovy use closure instead of lambda expression

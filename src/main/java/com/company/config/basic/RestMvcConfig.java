@@ -1,11 +1,7 @@
 package com.company.config.basic;
 
-import com.company.formatter.BaseDateFormatter;
-import com.company.formatter.BaseDateTimeFormatter;
-import com.company.formatter.ZonedDateTimeFormatter;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -20,7 +16,6 @@ import org.springframework.data.rest.webmvc.HttpHeadersPreparer;
 import org.springframework.data.rest.webmvc.PersistentEntityResource;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.data.rest.webmvc.support.ETag;
-import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
@@ -29,47 +24,30 @@ import java.time.Instant;
 import java.util.Optional;
 
 /**
- * Solves 3 issues:
+ * Solves 1 issue:
  * - The lack of a converter from java.util.Date to ZonedDateTime - by not converting to Date
- * - Ensuring only one instanceof the conversion service when using Rest MVC (mvcConversionService bean == defaultConversionService)
- * - Ensures the possibility to add custom converters and formatters
  */
 public class RestMvcConfig extends RepositoryRestMvcConfiguration {
 
     private ObjectFactory<ConversionService> conversionServiceObjectFactory;
+    private RepositoryRestConfiguration repositoryRestConfiguration;
 
     public RestMvcConfig(ApplicationContext context, ObjectFactory<ConversionService> conversionServiceObjectFactory) {
         super(context, conversionServiceObjectFactory);
         this.conversionServiceObjectFactory = conversionServiceObjectFactory;
     }
 
-    @Bean
-    @Qualifier
-    @Override
-    public DefaultFormattingConversionService defaultConversionService() {
-
-        DefaultFormattingConversionService conversionService = super.defaultConversionService();
-
-        // TODO: Create hook for adding custom formatters
-        conversionService.addFormatter(new BaseDateTimeFormatter());
-        conversionService.addFormatter(new BaseDateFormatter());
-        conversionService.addFormatter(new ZonedDateTimeFormatter());
-
-        addFormatters(conversionService);
-
-        return conversionService;
-    }
-
     /**
      * Main configuration for the REST exporter.
+     * Always return the same instance within the same application context
      */
     @Bean
     @Primary
-    public RepositoryRestConfiguration repositoryRestConfiguration() {
-        RepositoryRestConfiguration config = super.repositoryRestConfiguration();
-        // TODO: Add hook for adding custom projections that not necessarily resides in the same package as the entity
-
-        return config;
+    public synchronized RepositoryRestConfiguration repositoryRestConfiguration() {
+        if (repositoryRestConfiguration == null) {
+            repositoryRestConfiguration = super.repositoryRestConfiguration();
+        }
+        return repositoryRestConfiguration;
     }
 
 //    @Override

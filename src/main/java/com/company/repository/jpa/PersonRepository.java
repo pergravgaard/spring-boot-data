@@ -36,7 +36,7 @@ public interface PersonRepository extends GenericJpaRepository<Person, Long> {
     default Person getPersonWithAddressById(Long id) {
 
 //        Person one = getOne(id);
-//        one.getAddress().getStreet(); // works, but is not optimal for performance
+//        one.getAddress().getStreet(); // works, but is not optimal for performance (N + 1 problem)
 //        return one;
 
         EntityGraph<Person> graph = getEntityManager().createEntityGraph(Person.class);

@@ -12,10 +12,12 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import javax.sql.DataSource;
 
-
+/**
+ * Generic Data Source configuration when using JPA
+ */
 public class JpaDataSourceConfig {
 
-    private static final Logger Log = LogManager.getLogger(JpaDataSourceConfig.class);
+    private static final Logger Log = LogManager.getLogger();
 
     @Autowired
     private Environment env;
@@ -23,11 +25,11 @@ public class JpaDataSourceConfig {
     @Bean
     public DataSource dataSource(DatabasePopulator populator) {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+        dataSource.setDriverClassName(env.getRequiredProperty("jdbc.driverClassName"));
         dataSource.setUrl(env.getProperty("jdbc.url"));
-        Log.info("Using JDBC url: " + env.getProperty("jdbc.url"));
-        dataSource.setUsername(env.getProperty("jdbc.username"));
-        dataSource.setPassword(env.getProperty("jdbc.password"));
+        Log.info("Using JDBC url: " + env.getRequiredProperty("jdbc.url"));
+        dataSource.setUsername(env.getRequiredProperty("jdbc.username"));
+        dataSource.setPassword(env.getRequiredProperty("jdbc.password"));
         DatabasePopulatorUtils.execute(populator, dataSource);
         return dataSource;
     }
