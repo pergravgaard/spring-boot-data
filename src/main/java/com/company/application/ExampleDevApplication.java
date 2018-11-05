@@ -1,10 +1,10 @@
 package com.company.application;
 
-import com.company.config.AppConfig;
+import com.company.config.RunConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Import;
 
-@Import(AppConfig.class)
+@Import(RunConfig.class)
 public class ExampleDevApplication {
 
 	public static void main(String[] args) {

@@ -10,6 +10,8 @@ ext {
     elApiVersion = '3.0.0'
     liquibaseVersion = '3.6.2'
     reflectionsVersion = '0.9.11'
+    springFoxVersion = '2.9.2'
+//    springFoxVersion = '2.7.0'
 }
 
 // gradle -q dependencyInsight --dependency groovy --configuration compile

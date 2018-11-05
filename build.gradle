@@ -1,9 +1,12 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.6.RELEASE'
+		springBootVersion = '2.1.0.RELEASE'
 	}
 	repositories {
-		mavenCentral()
+		maven {
+			url "http://jenkins.jysk.local:7070/artifactory/repo/"
+		}
+//		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -25,33 +28,36 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+//	mavenCentral()
+    maven {
+        url "http://jenkins.jysk.local:7070/artifactory/repo/"
+    }
 }
 
 dependencies {
 
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4j2Version
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4j2Version
-    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: log4j2Version // this dependency is necessary to control logging for org.springframework
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4j2Version
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4j2Version
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: log4j2Version // this dependency is necessary to control logging for org.springframework
 
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-    compile "javax.validation:validation-api:${validationApiVersion}"
-    compile "org.hibernate:hibernate-java8:${hibernateCoreVersion}"
-    compile "org.hibernate:hibernate-validator:${hibernateValidatorVersion}"
-    compile "javax.el:javax.el-api:${elApiVersion}"
-    compile "org.glassfish:javax.el:${elApiVersion}"
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation "javax.validation:validation-api:${validationApiVersion}"
+	implementation "org.hibernate:hibernate-java8:${hibernateCoreVersion}"
+	implementation "org.hibernate:hibernate-validator:${hibernateValidatorVersion}"
+	implementation "javax.el:javax.el-api:${elApiVersion}"
+	implementation "org.glassfish:javax.el:${elApiVersion}"
 
-    compile "org.liquibase:liquibase-core:${liquibaseVersion}"
+	implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
 
 //    liquibaseRuntime 'org.liquibase:liquibase-core:3.6.2'
 //    liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:2.0.1'
 
-	compile group: 'org.reflections', name: 'reflections', version: reflectionsVersion
+	implementation group: 'org.reflections', name: 'reflections', version: reflectionsVersion
 
 	runtime "com.h2database:h2:${h2Version}"
     runtime "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
 	
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
     
 //	testImplementation(
 //			'org.junit.jupiter:junit-jupiter-api:5.1.0'
