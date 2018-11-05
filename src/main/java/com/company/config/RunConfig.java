@@ -1,5 +1,6 @@
 package com.company.config;
 
+import com.company.bootstrap.Bootstrap;
 import com.company.config.basic.JpaConfig;
 import com.company.config.basic.JpaDataSourceConfig;
 import com.company.config.basic.RestMvcConfig;
@@ -14,12 +15,7 @@ import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoCon
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @ComponentScan(value = {
         "com.company",
@@ -66,20 +62,7 @@ public class RunConfig extends AppConfig {
             kim.setAddress(address);
             personRepository.save(kim);
 
-            LocalDateTime localDateTime = LocalDateTime.of(1971, 12, 10, 14, 15);
-            ZonedDateTime utcPointInTime = ZonedDateTime.of(localDateTime, ZoneOffset.UTC);
-
-            List<String> lastNames = Arrays.asList("Andersen", "Christensen", "Damgaard", "Espersen", "Frederiksen", "Gaardbo", "Hansen", "Ibsen", "Jakobsen", "Karlsen", "Ladefoged", "Mortensen", "Nielsen", "Olsen", "Petersen", "Quist", "Rasmussen", "Sørensen", "Thomsen", "Udsen", "Villadsen", "Westergaard");
-            List<Person> persons = lastNames.stream().map(s -> {
-                Person p = new Person();
-                p.setFirstName("Firstname");
-                p.setLastName(s);
-                p.setBirthDateTime(utcPointInTime.withNano(0).withSecond(0).plusYears(25).withZoneSameLocal(ZoneOffset.ofHours(-7)));
-                p.setAddress(address);
-                return p;
-            }).collect(Collectors.toList());
-            personRepository.saveAll(persons);
-
+            Bootstrap.createPersons(personRepository, address);
 
         };
     }

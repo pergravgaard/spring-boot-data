@@ -3,10 +3,7 @@ buildscript {
 		springBootVersion = '2.1.0.RELEASE'
 	}
 	repositories {
-		maven {
-			url "http://jenkins.jysk.local:7070/artifactory/repo/"
-		}
-//		mavenCentral()
+		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -36,10 +33,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-//	mavenCentral()
-    maven {
-        url "http://jenkins.jysk.local:7070/artifactory/repo/"
-    }
+	mavenCentral()
 }
 
 dependencies {
@@ -90,8 +84,8 @@ dependencies {
 	runtime "com.h2database:h2:${h2Version}"
     runtime "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
 	
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('org.springframework.boot:spring-boot-starter-webflux')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.boot:spring-boot-starter-webflux')
 
 //    testImplementation "org.springframework.restdocs:spring-restdocs-webtestclient:2.0.3.BUILD-SNAPSHOT"
 

@@ -22,5 +22,31 @@ public class GenericJpaRepositoryImpl<T extends Persistable, ID extends Serializ
         return entityManager;
     }
 
+//    @Override
+//    @Transactional
+//    public void delete(T entity) {
+//        EntityManager em = getEntityManager();
+//        if (em.contains(entity)) {
+//            em.remove(entity);
+//        } else {
+//            // must merge and refresh for successful removal
+//            T managedEntity = em.merge(entity);
+//            em.refresh(managedEntity);
+//            em.remove(managedEntity);
+//        }
+//    }
+//
+//    @Override
+//    @Transactional
+//    public <S extends T> S save(S entity) {
+//        EntityManager em = getEntityManager();
+//        if (em.contains(entity)) {
+//            return super.save(entity);
+//        }
+//        // must merge and refresh for successful save
+//        S managedEntity = em.merge(entity);
+//        em.refresh(managedEntity);
+//        return super.save(managedEntity);
+//    }
 
 }

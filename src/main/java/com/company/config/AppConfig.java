@@ -3,6 +3,8 @@ package com.company.config;
 import com.company.formatter.BaseDateFormatter;
 import com.company.formatter.BaseDateTimeFormatter;
 import com.company.formatter.ZonedDateTimeFormatter;
+import com.company.model.jpa.Address;
+import com.company.model.jpa.Person;
 import com.company.rest.projection.PersonNameConcatenated;
 import com.company.rest.projection.PersonWithAddress;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,8 @@ public class AppConfig {
     @Bean
     public String addCustomProjections() {
 
+        repositoryRestConfiguration.exposeIdsFor(Person.class); // ensure that the id is marshalled as well
+        repositoryRestConfiguration.exposeIdsFor(Address.class); // ensure that the id is marshalled as well
         repositoryRestConfiguration.getProjectionConfiguration().addProjection(PersonWithAddress.class);
         repositoryRestConfiguration.getProjectionConfiguration().addProjection(PersonNameConcatenated.class);
 
