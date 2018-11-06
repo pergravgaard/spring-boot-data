@@ -167,11 +167,15 @@ This pattern should be avoided.
 
 No need for running exploded war.
 By default an embedded Tomcat server is used.
-This can be change to any web server of your choosing.
+This can be changed to any web server of your choosing.
 
 # Hypertext Application Language (HAL)
 
-Coming soon...
+HAL is a kind of meta data in your data structure which tells the client which other resources and links are available from the current URL.
+So a client can from a given base url for a REST API discover all other resources and links for the given REST API. 
+Run the application (see the section Running the application above) and visit:
+
+`http://localhost:8080`
 
 # Other Resources
 
