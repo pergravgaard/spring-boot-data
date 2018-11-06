@@ -77,8 +77,6 @@ This project is versioned by Git and the different branches are the different "s
     - HAL: implemented out of the box
     - Projections: class and methods
     - Prevent exposure of a repository method
-- Spring HATEOAS
-    - to be continued
 - Swagger UI
     
 
@@ -177,6 +175,19 @@ Run the application (see the section Running the application above) and visit:
 
 `http://localhost:8080`
 
+# Swagger UI
+
+Spring uses SpringFox to implement Swagger, but at the time of writing SpringFox is not able to make Swagger discover repositories exposed by Spring Data Rest (SpringFox version 2.9.2).
+Only manually exposed repositories will be discovered.
+As a workaround the SpringFox master branch (version 3.0.0-SNAPSHOT) was cloned and the necessary modules build.
+Then the jar's from these builds was copied to this project (see build.gradle).
+When version 3.0.0 is released this workaround won't be necessary.
+Now the automatically exposed repositories are discovered by Swagger.
+Visit:
+
+`http://localhost:8080/swagger-ui.html`
+
+
 # Other Resources
 
 - Spring (https://spring.io)
@@ -201,3 +212,4 @@ Run the application (see the section Running the application above) and visit:
 - Spring REST HAL (https://www.baeldung.com/spring-rest-hal)
 - Spring Rest Projections (https://www.baeldung.com/spring-data-rest-projections-excerpts)
 - Spring Rest Projections for collections (https://gigsterous.github.io/engineering/2018/01/26/spring-data-rest-projections.html)
+- Spring Data Rest vs Spring HATEOAS (https://stackoverflow.com/questions/19514131/spring-hateoas-versus-spring-data-rest)
