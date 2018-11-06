@@ -25,7 +25,7 @@ import java.util.Optional;
 
 /**
  * Solves 1 issue:
- * - The lack of a converter from java.util.Date to ZonedDateTime - by not converting to Date
+ * - The lack of a converter from java.util.Date to ZonedDateTime - simply by not converting to Date
  */
 public class RestMvcConfig extends RepositoryRestMvcConfiguration {
 
@@ -36,6 +36,12 @@ public class RestMvcConfig extends RepositoryRestMvcConfiguration {
         super(context, conversionServiceObjectFactory);
         this.conversionServiceObjectFactory = conversionServiceObjectFactory;
     }
+
+//    @Override
+//    protected ObjectMapper basicObjectMapper() {
+//        ObjectMapper objectMapper = super.basicObjectMapper();
+//        return objectMapper;
+//    }
 
     /**
      * Main configuration for the REST exporter.
@@ -49,12 +55,6 @@ public class RestMvcConfig extends RepositoryRestMvcConfiguration {
         }
         return repositoryRestConfiguration;
     }
-
-//    @Override
-//    public void configureJacksonObjectMapper(ObjectMapper objectMapper) {
-//        objectMapper.registerModule(new JavaTimeModule());
-//        objectMapper.disable( SerializationFeature.WRITE_DATES_AS_TIMESTAMPS );
-//    }
 
     @Bean
     @Override

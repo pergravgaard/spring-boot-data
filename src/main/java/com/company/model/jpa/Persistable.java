@@ -1,5 +1,6 @@
 package com.company.model.jpa;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
@@ -27,6 +28,7 @@ public interface Persistable<ID extends Serializable> extends Serializable {
      * Uses the version field instead of the id field. This does not rule out any id generation strategy (as opposed to using the id field).
      * @return if the object is new
      */
+    @JsonIgnore
     default boolean isNew() {
         return getVersion() == null;
     }
