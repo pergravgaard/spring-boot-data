@@ -1,19 +1,3 @@
-
-# TODO
-
-- Spring Data Solr
-- Test Rest Controller
-- Swagger detect auto created REST controllers
-- REST fetch lazy loaded relations
-- REST Error Handling
-- REST prevent exposure of method DONE
-- REST expose a method DONE
-- How many conversion services in Spring?
-- REST: Convert ZonedDateTime. WORKAROUND - CREATE BUG REPORT
-- getOne (getReference and lazy initialization exception) DONE
-- disable Open In Session View. DONE
-- Check ZonedDateTime in DB. DONE
-
 # Introduction
 
 This project shows how to use Spring Data as the JPA layer and how to configure Spring manually, i.e. getting rid of the auto configuration.
