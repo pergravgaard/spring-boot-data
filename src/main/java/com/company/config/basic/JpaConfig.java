@@ -23,7 +23,7 @@ import java.util.Properties;
 /**
  * Generic JPA configuration (except for the condition that packages must begin with 'com')
  */
-@EnableJpaRepositories(basePackages = "com.*.repository.jpa", repositoryBaseClass = GenericJpaRepositoryImpl.class)
+@EnableJpaRepositories(basePackages = "com.**.repository.jpa", repositoryBaseClass = GenericJpaRepositoryImpl.class)
 @EnableJpaAuditing(dateTimeProviderRef = "dateTimeProvider")
 @EnableTransactionManagement
 public class JpaConfig {
@@ -64,7 +64,7 @@ public class JpaConfig {
         vendorAdapter.setGenerateDdl(Boolean.valueOf(env.getProperty("hibernate.hbm2ddl.generate")));
         vendorAdapter.setShowSql(Boolean.valueOf(env.getProperty("hibernate.show_sql")));
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.*.model.jpa");
+        factory.setPackagesToScan("com.**.model.jpa");
         Properties jpaProperties = new Properties();
         jpaProperties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
         jpaProperties.put("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
