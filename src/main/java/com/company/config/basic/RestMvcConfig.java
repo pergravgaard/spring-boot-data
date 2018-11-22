@@ -2,11 +2,13 @@ package com.company.config.basic;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.ConfigurableConversionService;
+import org.springframework.core.env.Environment;
 import org.springframework.data.auditing.AuditableBeanWrapper;
 import org.springframework.data.auditing.AuditableBeanWrapperFactory;
 import org.springframework.data.convert.Jsr310Converters;
@@ -28,6 +30,9 @@ import java.util.Optional;
  * - The lack of a converter from java.util.Date to ZonedDateTime - simply by not converting to Date
  */
 public class RestMvcConfig extends RepositoryRestMvcConfiguration {
+
+    @Autowired
+    private Environment env;
 
     private ObjectFactory<ConversionService> conversionServiceObjectFactory;
     private RepositoryRestConfiguration repositoryRestConfiguration;
@@ -52,6 +57,8 @@ public class RestMvcConfig extends RepositoryRestMvcConfiguration {
     public synchronized RepositoryRestConfiguration repositoryRestConfiguration() {
         if (repositoryRestConfiguration == null) {
             repositoryRestConfiguration = super.repositoryRestConfiguration();
+            String basePath = env.getProperty("spring.data.rest.basePath", "");
+            repositoryRestConfiguration.setBasePath(basePath);
         }
         return repositoryRestConfiguration;
     }

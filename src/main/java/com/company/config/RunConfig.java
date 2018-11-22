@@ -22,8 +22,9 @@ import java.time.ZonedDateTime;
         "springfox.documentation.spring.data.rest"
 }) // tell Spring which packages to scan for components
 @PropertySources({
-        @PropertySource(value = {"classpath:mariadb.properties", "classpath:mariadb-${env}.properties"}, ignoreResourceNotFound = true)
+        @PropertySource(value = {"classpath:mariadb.properties", "classpath:mariadb-${env}.properties"}, ignoreResourceNotFound = true),
 //        @PropertySource(value = {"classpath:h2.properties", "classpath:h2-${env}.properties"}, ignoreResourceNotFound = true)
+        @PropertySource(value = {"classpath:rest-mvc.properties", "classpath:rest-mvc-${env}.properties"}, ignoreResourceNotFound = true)
 })
 @EnableAutoConfiguration(exclude = {
         DataSourceAutoConfiguration.class,
