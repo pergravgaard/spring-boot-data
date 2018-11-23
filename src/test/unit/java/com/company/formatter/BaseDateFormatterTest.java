@@ -16,17 +16,17 @@ public class BaseDateFormatterTest {
     private BaseDateFormatter baseDateFormatter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         baseDateFormatter = new BaseDateFormatter();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
 
     }
 
     @Test
-    public void testParse() throws Exception {
+    public void testParse() {
         Locale locale = null;
         assertNotNull(baseDateFormatter.parse("3-1-2016", locale));
 //        assertEquals(LocalDateTime.of(2016, Month.JANUARY, 3, 5, 9), baseDateTimeFormatter.parse("3-1-2016", locale));

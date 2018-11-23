@@ -1,5 +1,6 @@
 package com.company.repository.jpa;
 
+import com.company.bootstrap.Bootstrap;
 import com.company.config.TestConfig;
 import com.company.model.jpa.Address;
 import com.company.model.jpa.Person;
@@ -53,15 +54,7 @@ public class PersonRepositoryTest {
         LocalDateTime localDateTime = LocalDateTime.of(1971, 12, 10, 14, 15);
         ZonedDateTime utcPointInTime = ZonedDateTime.of(localDateTime, ZoneOffset.UTC);
 
-        Address address = new Address();
-        address.setStreet("Hollywood Avenue");
-        address.setNo("21C");
-        address.setZipCode("90210");
-        address.setCity("Los Angeles");
-        address.setState("California");
-        address.setCountry("USA");
-
-        addressRepository.save(address);
+        Address address = Bootstrap.createArbitraryAddress(addressRepository);
 
 //        System.out.println("local utcPointInTime: " + localDateTime);
 //        System.out.println("utcPointInTime: " + utcPointInTime + ", offset: " + utcPointInTime.getOffset());

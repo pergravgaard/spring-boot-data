@@ -1,5 +1,6 @@
 package com.company.repository.jpa;
 
+import com.company.bootstrap.Bootstrap;
 import com.company.config.TestConfig;
 import com.company.model.jpa.Address;
 import org.junit.After;
@@ -21,16 +22,7 @@ public class AddressRepositoryTest {
 
     @Before
     public void setUp() {
-
-        Address address = new Address();
-        address.setStreet("Hollywood Avenue");
-        address.setNo("21C");
-        address.setZipCode("90210");
-        address.setCity("Los Angeles");
-        address.setState("California");
-        address.setCountry("USA");
-        addressRepository.save(address);
-
+        Bootstrap.createArbitraryAddress(addressRepository);
     }
 
     @After

@@ -34,7 +34,7 @@ public class RestMvcConfig extends RepositoryRestMvcConfiguration {
     @Autowired
     private Environment env;
 
-    private ObjectFactory<ConversionService> conversionServiceObjectFactory;
+    private final ObjectFactory<ConversionService> conversionServiceObjectFactory;
     private RepositoryRestConfiguration repositoryRestConfiguration;
 
     public RestMvcConfig(ApplicationContext context, ObjectFactory<ConversionService> conversionServiceObjectFactory) {
@@ -57,8 +57,7 @@ public class RestMvcConfig extends RepositoryRestMvcConfiguration {
     public synchronized RepositoryRestConfiguration repositoryRestConfiguration() {
         if (repositoryRestConfiguration == null) {
             repositoryRestConfiguration = super.repositoryRestConfiguration();
-            String basePath = env.getProperty("spring.data.rest.basePath", "");
-            repositoryRestConfiguration.setBasePath(basePath);
+            repositoryRestConfiguration.setBasePath(env.getProperty("spring.data.rest.basePath", ""));
         }
         return repositoryRestConfiguration;
     }

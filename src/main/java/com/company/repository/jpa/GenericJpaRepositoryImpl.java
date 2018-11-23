@@ -11,7 +11,6 @@ public class GenericJpaRepositoryImpl<T extends Persistable, ID extends Serializ
 
     private final EntityManager entityManager;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public GenericJpaRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
         super(entityInformation, entityManager);
         this.entityManager = entityManager;

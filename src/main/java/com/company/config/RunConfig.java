@@ -38,32 +38,24 @@ public class RunConfig extends AppConfig {
     @Profile("development")
 	public CommandLineRunner bootstrap(AddressRepository addressRepository, PersonRepository personRepository) {
 	    return run -> {
-            Address address = new Address();
-            address.setStreet("Hollywood Avenue");
-            address.setNo("21C");
-            address.setZipCode("90210");
-            address.setCity("Los Angeles");
-            address.setState("California");
-            address.setCountry("USA");
-            addressRepository.save(address);
+	            Address address = Bootstrap.createArbitraryAddress(addressRepository);
+                ZonedDateTime now = ZonedDateTime.now();
 
-            ZonedDateTime now = ZonedDateTime.now();
+                Person jack = new Person();
+                jack.setFirstName("Jack");
+                jack.setLastName("Bauer");
+                jack.setBirthDateTime(now.withNano(0).withSecond(0).minusYears(40));
+                jack.setAddress(address);
+                personRepository.save(jack);
 
-            Person jack = new Person();
-            jack.setFirstName("Jack");
-            jack.setLastName("Bauer");
-            jack.setBirthDateTime(now.withNano(0).withSecond(0).minusYears(40));
-            jack.setAddress(address);
-            personRepository.save(jack);
+                Person kim = new Person();
+                kim.setFirstName("Kim");
+                kim.setLastName("Bauer");
+                kim.setBirthDateTime(now.withNano(0).withSecond(0).minusYears(20));
+                kim.setAddress(address);
+                personRepository.save(kim);
 
-            Person kim = new Person();
-            kim.setFirstName("Kim");
-            kim.setLastName("Bauer");
-            kim.setBirthDateTime(now.withNano(0).withSecond(0).minusYears(20));
-            kim.setAddress(address);
-            personRepository.save(kim);
-
-            Bootstrap.createPersons(personRepository, address);
+                Bootstrap.createPersons(personRepository, address);
 
         };
     }

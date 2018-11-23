@@ -24,6 +24,11 @@ import static org.hamcrest.Matchers.equalTo;
 @SpringBootTest(classes = TestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PersonRestRepositoryTest {
 
+    static {
+        System.setProperty("env", "test");
+        System.setProperty("spring.profiles.active", "testing");
+    }
+
     @Autowired
     private TestRestTemplate template;
 
@@ -35,14 +40,7 @@ public class PersonRestRepositoryTest {
 
     @Before
     public void before() {
-        Address address = new Address();
-        address.setStreet("Hollywood Avenue");
-        address.setNo("21C");
-        address.setZipCode("90210");
-        address.setCity("Los Angeles");
-        address.setState("California");
-        address.setCountry("USA");
-        addressRepository.save(address);
+        Address address = Bootstrap.createArbitraryAddress(addressRepository);
         Bootstrap.createPersons(personRepository, address);
     }
 

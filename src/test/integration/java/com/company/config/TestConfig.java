@@ -15,6 +15,7 @@ import org.springframework.context.annotation.PropertySources;
 
 @ComponentScan("com.company")
 @PropertySources({
+        @PropertySource(value = {"classpath:rest-mvc.properties", "classpath:rest-mvc-${env}.properties"}, ignoreResourceNotFound = true),
 //        @PropertySource(value = {"classpath:mariadb-test.properties"})
         @PropertySource(value = {"classpath:h2-test.properties"})
 })
