@@ -1,1 +1,9 @@
 console.warn('test.js');
+
+addEventListener('DOMContentLoaded', function() {
+    ReactDOM.render(
+        <h1>Hello, world!</h1>,
+        document.getElementById('root')
+    );
+
+});
