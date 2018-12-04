@@ -33,7 +33,7 @@ import java.time.ZonedDateTime;
         RepositoryRestMvcAutoConfiguration.class
 })
 @EnableWebMvc
-@Import({JpaDataSourceConfig.class, JpaConfig.class, WebMvcConfig.class, RestMvcConfig.class, SwaggerConfig.class})
+@Import({JpaDataSourceConfig.class, JpaConfig.class, JerseyRestConfig.class, WebMvcConfig.class, RestMvcConfig.class, SwaggerConfig.class})
 public class RunConfig extends AppConfig {
 
 	@Bean
