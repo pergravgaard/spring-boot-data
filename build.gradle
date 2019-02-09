@@ -91,7 +91,7 @@ dependencies {
 	runtime "com.h2database:h2:${h2Version}"
     runtime "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
 
-
+    // make sure that the jersey version here matches the one Spring is using internally - otherwise runtime exceptions will most likely occur
     implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.27'
     implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.27'
     implementation 'org.glassfish.jersey.ext:jersey-spring4:2.27'

@@ -1,14 +1,14 @@
 ext {
     groovyVersion = '2.5.2'
     h2Version = '1.4.197'
-    mariadbVersion = '2.3.0'
+    mariadbVersion = '2.4.0'
     log4j2Version = '2.11.1'
-    jacksonVersion = '2.9.7'
-    hibernateCoreVersion = '5.3.7.Final'
-    hibernateValidatorVersion = '6.0.13.Final'
+    jacksonVersion = '2.9.8'
+    hibernateCoreVersion = '5.4.1.Final'
+    hibernateValidatorVersion = '6.0.14.Final'
     validationApiVersion = '2.0.1.Final'
     elApiVersion = '3.0.0'
-    liquibaseVersion = '3.6.2' // slf4j dependency is missing - use 3.5.5 for now
+    liquibaseVersion = '3.6.3' // slf4j dependency is missing - use 3.5.5 for now
 //    liquibaseVersion = '3.5.5'
     reflectionsVersion = '0.9.11'
     springFoxVersion = '2.9.2'

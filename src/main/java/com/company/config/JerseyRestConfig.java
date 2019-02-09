@@ -1,5 +1,6 @@
 package com.company.config;
 
+import com.company.rest.resource.PeopleResource;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import javax.ws.rs.ApplicationPath;
@@ -8,17 +9,9 @@ import javax.ws.rs.ApplicationPath;
 public class JerseyRestConfig extends ResourceConfig {
 
     public JerseyRestConfig() {
-        packages("com.company.rest.resource");
+        // do NOT use the packages method when using a Spring Boot executable jar/war - Jersey scanning won't be able to find your Resource classes
+        //packages("com.company.rest.resource");
+        register(PeopleResource.class);
     }
-
-//    public Set<Class<?>> getClasses() {
-//        return new HashSet<>(
-//                Arrays.asList(
-//                        Person.class,
-//                        NotFoundExceptionHandler.class,
-//                        AlreadyExistsExceptionHandler.class
-//                )
-//        );
-//    }
 
 }

@@ -9,7 +9,7 @@ databaseChangeLog:
 #                  dbms: h2, oracle
 #                  encoding: utf8
 #                  endDelimiter: \nGO
-                  path: /changes/v0001.sql
+                  path: changes/v0001.sql
                   relativeToChangelogFile: true
 #                  splitStatements: true
                   stripComments: true
@@ -21,7 +21,7 @@ databaseChangeLog:
                       #                  dbms: h2, oracle
                       #                  encoding: utf8
                       #                  endDelimiter: \nGO
-                      path: /changes/v0002.sql
+                      path: changes/v0002.sql
                       relativeToChangelogFile: true
                       #                  splitStatements: true
                       stripComments: true
