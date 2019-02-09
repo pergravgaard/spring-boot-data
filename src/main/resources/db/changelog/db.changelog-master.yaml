@@ -1,3 +1,27 @@
 databaseChangeLog:
-- includeAll:
-      path: classpath*:db/changelog/changes/
+#- includeAll:
+#      path: classpath*:db/changelog/changes/
+      - changeSet:
+            id: sqlFile-example
+            author: liquibase-docs
+            changes:
+            - sqlFile:
+#                  dbms: h2, oracle
+#                  encoding: utf8
+#                  endDelimiter: \nGO
+                  path: /changes/v0001.sql
+                  relativeToChangelogFile: true
+#                  splitStatements: true
+                  stripComments: true
+      - changeSet:
+            id: sqlFile-example2
+            author: liquibase-docs
+            changes:
+                - sqlFile:
+                      #                  dbms: h2, oracle
+                      #                  encoding: utf8
+                      #                  endDelimiter: \nGO
+                      path: /changes/v0002.sql
+                      relativeToChangelogFile: true
+                      #                  splitStatements: true
+                      stripComments: true

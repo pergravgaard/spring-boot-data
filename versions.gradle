@@ -8,7 +8,8 @@ ext {
     hibernateValidatorVersion = '6.0.13.Final'
     validationApiVersion = '2.0.1.Final'
     elApiVersion = '3.0.0'
-    liquibaseVersion = '3.6.2'
+    liquibaseVersion = '3.6.2' // slf4j dependency is missing - use 3.5.5 for now
+//    liquibaseVersion = '3.5.5'
     reflectionsVersion = '0.9.11'
     springFoxVersion = '2.9.2'
 }
@@ -19,8 +20,8 @@ configurations {
 
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
         //exclude group: "org.slf4j"
-        exclude group: "ch.qos.logback"
-
+        //exclude group: "ch.qos.logback"
+//
         resolutionStrategy {
 
             // force certain versions of dependencies (including transitive)
