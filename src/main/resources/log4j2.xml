@@ -16,7 +16,7 @@
         <Logger name="com.company" additivity="false" level="info">
             <AppenderRef ref="STDOUT_ASYNC" />
         </Logger>
-        <Logger name="org.springframework" additivity="false" level="info">
+        <Logger name="org.springframework" additivity="false" level="debug">
             <AppenderRef ref="STDOUT_ASYNC" />
         </Logger>
         <Logger name="org.hibernate" additivity="false" level="info">

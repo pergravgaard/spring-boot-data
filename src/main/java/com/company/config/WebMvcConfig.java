@@ -31,6 +31,21 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
+
+
+        // TODO: should not be necessary to copy the Swagger UI resource handlers
+        registry.addResourceHandler("/swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/")
+                .resourceChain(false)
+                .addResolver(new PathResourceResolver());
+
+        // TODO: Fix - needs to work in develop and production (jar)
+//        registry.addResourceHandler("/static/**", "/swagger-ui.html")
+//                .addResourceLocations("classpath:/static/")
+//                .setCachePeriod(0)
+//                .resourceChain(true)
+//                .addResolver(new PathResourceResolver());
+
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/")
                 .setCachePeriod(0)
