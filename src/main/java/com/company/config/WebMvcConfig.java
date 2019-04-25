@@ -1,5 +1,8 @@
 package com.company.config;
 
+import com.company.security.FirstFilter;
+import com.company.security.LastFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -10,9 +13,29 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class WebMvcConfig implements WebMvcConfigurer {
 
+    @Bean
+    public FilterRegistrationBean<FirstFilter> firstFilter() {
+        FilterRegistrationBean<FirstFilter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new FirstFilter());
+        filterRegistrationBean.addUrlPatterns("/", "/*");
+        filterRegistrationBean.setInitParameters(new HashMap<>());
+        filterRegistrationBean.setOrder(1);
+        return filterRegistrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean<LastFilter> lastFilter() {
+        FilterRegistrationBean<LastFilter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new LastFilter());
+        filterRegistrationBean.addUrlPatterns("/", "/*");
+        filterRegistrationBean.setInitParameters(new HashMap<>());
+        filterRegistrationBean.setOrder(100);
+        return filterRegistrationBean;
+    }
 
     @Bean
     public InternalResourceViewResolver viewResolver() {

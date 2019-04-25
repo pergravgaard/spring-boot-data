@@ -15,12 +15,18 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.security.Principal;
 
+@Deprecated
 public class CustomSecurityFilter extends GenericFilterBean {
 
     private final AuthenticationProvider authenticationProvider;
 
     public CustomSecurityFilter(AuthenticationProvider authenticationProvider) {
         this.authenticationProvider = authenticationProvider;
+    }
+
+    @Override
+    protected void initFilterBean() throws ServletException {
+        System.out.println("INIT FILTER BEAN");
     }
 
     @Override
