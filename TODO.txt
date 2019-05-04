@@ -1,0 +1,5 @@
+- Use yml files for liquibase instead of sql files
+- Add custom exression root on spring security branch
+- SpringFox (Swagger UI) requests /csrf which we have no resource for?
+- Add formatters in both WebMvcConfig and RestMvcConfig
+- ConversionConfig never used

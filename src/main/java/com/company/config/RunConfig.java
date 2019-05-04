@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfig
 import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.time.ZonedDateTime;
 
@@ -32,7 +31,6 @@ import java.time.ZonedDateTime;
         JpaRepositoriesAutoConfiguration.class,
         RepositoryRestMvcAutoConfiguration.class
 })
-@EnableWebMvc
 @Import({JpaDataSourceConfig.class, JpaConfig.class, JerseyRestConfig.class, WebMvcConfig.class, RestMvcConfig.class, SwaggerConfig.class})
 public class RunConfig extends AppConfig {
 
