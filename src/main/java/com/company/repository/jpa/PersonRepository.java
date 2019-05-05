@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public interface PersonRepository extends GenericJpaRepository<Person, Long> {
     @RestResource(rel = "find-by-last", path="find-by-last")
 //    @PreAuthorize("#lastName == authentication.principal")
 //    @PreAuthorize("#lastName == 'gravgaard'")
-    @PreAuthorize("hasPermission(#lastName, 'Foo', 'read')")
+    //@PreAuthorize("hasPermission(#lastName, 'Foo', 'read')")
     // no transactional annotation needed here, but the implementation will be transactional
     List<Person> findAllByLastName(@Param("lastName") String lastName); // no implementation needed - Spring will implement it by looking at method name
 
