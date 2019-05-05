@@ -1,10 +1,6 @@
 package com.company.model.jpa;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.ZonedDateTime;
 
 @Entity
 public class Address extends BaseAuditableEntity<String, Long> {
