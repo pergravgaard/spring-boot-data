@@ -43,9 +43,11 @@ public class RestMvcConfig extends RepositoryRestMvcConfiguration {
     }
 
 //    @Override
-//    protected ObjectMapper basicObjectMapper() {
-//        ObjectMapper objectMapper = super.basicObjectMapper();
-//        return objectMapper;
+//    public void addFormatters(FormatterRegistry registry) {
+//        super.addFormatters(registry);
+//        registry.addFormatter(new BaseDateTimeFormatter());
+//        registry.addFormatter(new BaseDateFormatter());
+//        registry.addFormatter(new ZonedDateTimeFormatter());
 //    }
 
     /**
