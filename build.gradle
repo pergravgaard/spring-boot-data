@@ -42,6 +42,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 //	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    //implementation 'com.okta.spring:okta-spring-boot-starter:1.2.0'
+
+    implementation 'org.springframework.security:spring-security-oauth2-client'
+    implementation ('org.springframework.security:spring-security-oauth2-jose') {
+        exclude group: 'org.springframework.security', module: 'spring-webflux'
+        exclude group: 'io.projectreactor', module: 'reactor-core'
+    }
+//    implementation "org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springBootVersion}"
 
     compile "org.liquibase:liquibase-core:${liquibaseVersion}"
     compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'

@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
 import org.springframework.context.annotation.*;
 
 import java.time.ZonedDateTime;
@@ -29,9 +30,10 @@ import java.time.ZonedDateTime;
 @EnableAutoConfiguration(exclude = {
         DataSourceAutoConfiguration.class,
         JpaRepositoriesAutoConfiguration.class,
-        RepositoryRestMvcAutoConfiguration.class
+        RepositoryRestMvcAutoConfiguration.class,
+        LiquibaseAutoConfiguration.class
 })
-@Import({JpaDataSourceConfig.class, JpaConfig.class, JerseyRestConfig.class, WebMvcConfig.class, RestMvcConfig.class, WebSecurityConfig.class, MethodSecurityConfig.class, SwaggerConfig.class})
+@Import({JpaDataSourceConfig.class, JpaConfig.class, MethodSecurityConfig.class, WebSecurityOAuth2Config.class, JerseyRestConfig.class, WebMvcConfig.class, RestMvcConfig.class, SwaggerConfig.class})
 public class RunConfig extends AppConfig {
 
 	@Bean

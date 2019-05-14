@@ -15,6 +15,7 @@ import org.springframework.context.annotation.PropertySources;
 
 @ComponentScan("com.company")
 @PropertySources({
+        @PropertySource(value = {"classpath:oauth.properties"}),
         @PropertySource(value = {"classpath:rest-mvc.properties", "classpath:rest-mvc-${env}.properties"}, ignoreResourceNotFound = true),
 //        @PropertySource(value = {"classpath:mariadb-test.properties"})
         @PropertySource(value = {"classpath:h2-test.properties"})
@@ -25,7 +26,8 @@ import org.springframework.context.annotation.PropertySources;
         RepositoryRestMvcAutoConfiguration.class,
         LiquibaseAutoConfiguration.class
 })
-@Import({JpaDataSourceConfig.class, JpaConfig.class, RestMvcConfig.class})
+//@Import({JpaDataSourceConfig.class, JpaConfig.class, RestMvcConfig.class})
+@Import({JpaDataSourceConfig.class, JpaConfig.class, MethodSecurityConfig.class, WebSecurityOAuth2Config.class, JerseyRestConfig.class, WebMvcConfig.class, RestMvcConfig.class, SwaggerConfig.class})
 public class TestConfig extends AppConfig {
 
 }
