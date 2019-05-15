@@ -1,7 +1,6 @@
 package com.company.config;
 
 import com.company.security.CustomAuthenticationFilter;
-import com.company.security.oauth.CustomAuthorizationRequestResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
@@ -20,7 +19,6 @@ import org.springframework.security.oauth2.client.registration.InMemoryClientReg
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -83,14 +81,6 @@ public class WebSecurityOAuth2Config extends WebSecurityConfigurerAdapter {
         return new InMemoryClientRegistrationRepository(registrations);
     }
 
-    private void configureOld(HttpSecurity http) throws Exception {
-        http.addFilterBefore(authenticationFilter(), BasicAuthenticationFilter.class);
-        http.authorizeRequests()
-                .antMatchers("/favicon.ico").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf().disable(); // and remember to disable CSRF for post/put requests
-    }
-
     private void configureSimple(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/signin", "/signin/failure", "/favicon.ico")
@@ -107,31 +97,31 @@ public class WebSecurityOAuth2Config extends WebSecurityConfigurerAdapter {
                 .failureUrl("/signin/failure");
     }
 
-    private void configureAdvanced(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/signin", "/signin/failure", "/favicon.ico")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .oauth2Login()
-                .loginPage("/signin")
-
-                .clientRegistrationRepository(clientRegistrationRepository())
-                .authorizedClientService(authorizedClientService())
-                .authorizationEndpoint()
-                //.baseUri("/oauth2/authorization")
-                .authorizationRequestResolver(new CustomAuthorizationRequestResolver(clientRegistrationRepository(),"/oauth2/authorization"))
-                .authorizationRequestRepository(authorizationRequestRepository())
-
-                .and()
-                .tokenEndpoint()
-                .accessTokenResponseClient(accessTokenResponseClient())
-                .and()
-
-                .defaultSuccessUrl("/")
-                .failureUrl("/signin/failure");
-    }
+//    private void configureAdvanced(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers("/signin", "/signin/failure", "/favicon.ico")
+//                .permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .oauth2Login()
+//                .loginPage("/signin")
+//
+//                .clientRegistrationRepository(clientRegistrationRepository())
+//                .authorizedClientService(authorizedClientService())
+//                .authorizationEndpoint()
+//                //.baseUri("/oauth2/authorization")
+//                .authorizationRequestResolver(new CustomAuthorizationRequestResolver(clientRegistrationRepository(),"/oauth2/authorization"))
+//                .authorizationRequestRepository(authorizationRequestRepository())
+//
+//                .and()
+//                .tokenEndpoint()
+//                .accessTokenResponseClient(accessTokenResponseClient())
+//                .and()
+//
+//                .defaultSuccessUrl("/")
+//                .failureUrl("/signin/failure");
+//    }
 
     // From fpr-vertx for FB: https://www.facebook.com/dialog/oauth?client_id=178109302761409&scope=email&response_type=code%2Cgranted_scopes&redirect_uri=https%3A%2F%2Fflightpollutionradar.com%2Ffacebook-callback&state=09d1f449-7913-493c-b547-752a6d2bd080
 

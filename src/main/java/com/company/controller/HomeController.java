@@ -18,7 +18,7 @@ public class HomeController {
         OAuth2User user = ((OAuth2AuthenticationToken) principal).getPrincipal();
         model.addAttribute("username", user.getAttributes().getOrDefault("name", "John Doe"));
         System.out.println("Username: " + model.asMap().get("username"));
-        return "/index";
+        return "index";
     }
 
 }
