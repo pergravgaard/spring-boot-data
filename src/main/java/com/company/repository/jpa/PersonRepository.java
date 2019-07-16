@@ -29,6 +29,11 @@ public interface PersonRepository extends GenericJpaRepository<Person, Long> {
     // no transactional annotation needed here, but the implementation will be transactional
     Person findFirstByFirstNameAndLastName(@Param("firstName") String firstName, @Param("lastName") String lastName); // no implementation needed - Spring will implement it by looking at method name
 
+    @RestResource(rel = "find-all-by-lastname-containing", path="find-all-by-lastname-containing")
+    // no transactional annotation needed here, but the implementation will be transactional
+    List<Person> findAllByLastNameContaining(@Param("lastNamePart") String lastNamePart);
+
+
     // See https://www.thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
     @SuppressWarnings("unchecked")
     // won't be exported by Rest by default due to not following naming convention

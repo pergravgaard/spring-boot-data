@@ -13,9 +13,7 @@ import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.validation.BindingResult;
@@ -314,6 +312,30 @@ public class PersonRepositoryTest {
         ZonedDateTime birthDateTime = ZonedDateTime.of(localDateTime, ZoneOffset.ofHours(1));
         assertEquals(birthDateTime, person.getBirthDateTime());
 
+    }
+
+    // See https://www.baeldung.com/spring-data-query-by-example
+    @Test
+    public void testQueryByExample() {
+        personRepository.deleteAll();
+        Person jill = Person.from("Jill", "Smith");
+        Person eve = Person.from("Eve", "Jackson");
+        Person fred = Person.from("Fred", "Bloggs");
+        Person siya = Person.from("Siya", "Kolisi");
+        Person ricki = Person.from("Ricki", "Bobbie");
+        List<Person> all = Arrays.asList(jill, eve, fred, siya, ricki);
+        personRepository.saveAll(all);
+        ExampleMatcher customExampleMatcher = ExampleMatcher.matchingAny()
+                .withMatcher("firstName", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+                .withMatcher("lastName", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+                .withIgnorePaths("birthDateTime", "address");
+
+        Person queryTarget = Person.from("e", "s", null);
+        Example<Person> example = Example.of(queryTarget, customExampleMatcher);
+        List<Person> foundPersons = personRepository.findAll(example);
+
+        assertTrue(foundPersons.containsAll(Arrays.asList(jill, eve, fred, siya)));
+        assertFalse(foundPersons.contains(ricki));
     }
 
 }
