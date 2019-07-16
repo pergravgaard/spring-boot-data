@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.1.4.RELEASE'
+		springBootVersion = '2.1.6.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -55,8 +55,8 @@ dependencies {
 //    implementation "io.springfox:springfox-swagger-ui:${springFoxVersion}"
 
     // but we can't wait that long so add these dependencies
-    implementation "io.swagger:swagger-annotations:1.5.20"
-    implementation "io.swagger:swagger-models:1.5.20"
+    implementation "io.swagger:swagger-annotations:1.5.22"
+    implementation "io.swagger:swagger-models:1.5.22"
     implementation group: 'org.springframework.plugin', name: 'spring-plugin-metadata', version: '1.2.0.RELEASE'
 
     // and check out Springfox max and run gradle clean build and copy the jars below
@@ -80,9 +80,9 @@ dependencies {
     runtime "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
 
     // make sure that the jersey version here matches the one Spring is using internally - otherwise runtime exceptions will most likely occur
-    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.27'
-    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.27'
-    implementation 'org.glassfish.jersey.ext:jersey-spring4:2.27'
+    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.29'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.29'
+    implementation 'org.glassfish.jersey.ext:jersey-spring4:2.29'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
