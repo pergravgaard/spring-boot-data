@@ -34,16 +34,8 @@ public class RunConfig extends AppConfig {
     @Profile("development")
 	public CommandLineRunner bootstrap(AddressRepository addressRepository, PersonRepository personRepository) {
 	    return run -> {
-            Address address = new Address();
-            address.setStreet("Hollywood Avenue");
-            address.setNo("21C");
-            address.setZipCode("90210");
-            address.setCity("Los Angeles");
-            address.setState("California");
-            address.setCountry("USA");
-            addressRepository.save(address);
-
-            ZonedDateTime now = ZonedDateTime.now();
+	            Address address = Bootstrap.createArbitraryAddress(addressRepository);
+                ZonedDateTime now = ZonedDateTime.now();
 
             Person jack = new Person();
             jack.setFirstName("Jack");

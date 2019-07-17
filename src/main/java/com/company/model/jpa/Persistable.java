@@ -20,7 +20,7 @@ public interface Persistable<ID extends Serializable> extends Serializable {
      */
     default Integer getVersion() {
         return null;
-    };
+    }
 
     /**
      * Returns if the {@code Persistable} is new or was persisted already.

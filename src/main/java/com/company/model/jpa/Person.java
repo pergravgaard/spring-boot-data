@@ -26,6 +26,18 @@ public class Person extends BaseAuditableEntity<String, Long> {
     @ManyToOne(fetch = FetchType.LAZY)
     private Address address;
 
+    public static Person from(String firstName, String lastName) {
+        return Person.from(firstName, lastName, ZonedDateTime.now());
+    }
+
+    public static Person from(String firstName, String lastName, ZonedDateTime birthDateTime) {
+        Person person = new Person();
+        person.setFirstName(firstName);
+        person.setLastName(lastName);
+        person.setBirthDateTime(birthDateTime);
+        return person;
+    }
+
     public String getFirstName() {
         return firstName;
     }

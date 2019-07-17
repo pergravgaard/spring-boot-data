@@ -2,6 +2,7 @@ package com.company.bootstrap;
 
 import com.company.model.jpa.Address;
 import com.company.model.jpa.Person;
+import com.company.repository.jpa.AddressRepository;
 import com.company.repository.jpa.PersonRepository;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,17 @@ public class Bootstrap {
 
     private Bootstrap() {
 
+    }
+
+    public static Address createArbitraryAddress(AddressRepository addressRepository) {
+        Address address = new Address();
+        address.setStreet("Hollywood Avenue");
+        address.setNo("21C");
+        address.setZipCode("90210");
+        address.setCity("Los Angeles");
+        address.setState("California");
+        address.setCountry("USA");
+        return addressRepository.save(address);
     }
 
     public static void createPersons(PersonRepository personRepository, Address address) {
@@ -32,4 +44,5 @@ public class Bootstrap {
         }).collect(Collectors.toList());
         personRepository.saveAll(persons);
     }
+
 }
