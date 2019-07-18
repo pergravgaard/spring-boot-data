@@ -33,4 +33,4 @@ task integration(type: Test, description: 'Runs the integration tests.', group: 
 	classpath += sourceSets.integration.runtimeClasspath
 }
 
-build.dependsOn integration
+check.dependsOn integration
