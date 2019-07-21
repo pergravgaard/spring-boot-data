@@ -5,7 +5,6 @@ import com.company.config.basic.JpaConfig;
 import com.company.config.basic.JpaDataSourceConfig;
 import com.company.config.basic.RestMvcConfig;
 import com.company.model.jpa.Address;
-import com.company.model.jpa.Person;
 import com.company.repository.jpa.AddressRepository;
 import com.company.repository.jpa.PersonRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -38,22 +37,12 @@ public class RunConfig extends AppConfig {
     @Profile("development")
 	public CommandLineRunner bootstrap(AddressRepository addressRepository, PersonRepository personRepository) {
 	    return run -> {
+	            personRepository.deleteAll();
+                addressRepository.deleteAll();
 	            Address address = Bootstrap.createArbitraryAddress(addressRepository);
                 ZonedDateTime now = ZonedDateTime.now();
 
-                Person jack = new Person();
-                jack.setFirstName("Jack");
-                jack.setLastName("Bauer");
-                jack.setBirthDateTime(now.withNano(0).withSecond(0).minusYears(40));
-                jack.setAddress(address);
-                personRepository.save(jack);
-
-                Person kim = new Person();
-                kim.setFirstName("Kim");
-                kim.setLastName("Bauer");
-                kim.setBirthDateTime(now.withNano(0).withSecond(0).minusYears(20));
-                kim.setAddress(address);
-                personRepository.save(kim);
+                Bootstrap.createTheBauers(personRepository, address, now);
 
                 Bootstrap.createPersons(personRepository, address);
 

@@ -57,19 +57,7 @@ public class PersonRepositoryTest {
 //        System.out.println("local utcPointInTime: " + localDateTime);
 //        System.out.println("utcPointInTime: " + utcPointInTime + ", offset: " + utcPointInTime.getOffset());
 
-        Person jack = new Person();
-        jack.setFirstName("Jack");
-        jack.setLastName("Bauer");
-        jack.setBirthDateTime(utcPointInTime.withNano(0).withSecond(0).withZoneSameLocal(ZoneOffset.ofHours(-7)));
-        jack.setAddress(address);
-        personRepository.save(jack);
-
-        Person kim = new Person();
-        kim.setFirstName("Kim");
-        kim.setLastName("Bauer");
-        kim.setBirthDateTime(utcPointInTime.withNano(0).withSecond(0).plusYears(25).withZoneSameLocal(ZoneOffset.ofHours(-7)));
-        kim.setAddress(address);
-        personRepository.save(kim);
+        Bootstrap.createTheBauers(personRepository, address, utcPointInTime);
 
         List<Person> persons = new ArrayList<>();
         lastNames = Arrays.asList("Andersen", "Christensen", "Damgaard", "Espersen", "Frederiksen");
@@ -141,7 +129,7 @@ public class PersonRepositoryTest {
 
         personRepository.save(jack);
 
-        jack = personRepository.findById(jack.getId()).get();
+        jack = personRepository.findById(jack.getId()).orElse(null);
 
         assertTrue(jack.getCreatedDateTime().isBefore(jack.getLastModifiedDateTime()));
         assertEquals(1, jack.getVersion().intValue());

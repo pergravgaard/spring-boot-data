@@ -167,7 +167,7 @@ As a workaround the SpringFox master branch (version 3.0.0-SNAPSHOT) was cloned 
 Then the jar's from these builds was copied to this project (see build.gradle).
 When version 3.0.0 is released this workaround won't be necessary.
 Now the automatically exposed repositories are discovered by Swagger.
-Visit:
+Just visit:
 
 `http://localhost:8080/swagger-ui.html`
 

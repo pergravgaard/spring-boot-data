@@ -1,10 +1,7 @@
 package com.company;
 
-import liquibase.exception.CommandLineParsingException;
 import liquibase.exception.LiquibaseException;
 import liquibase.integration.commandline.Main;
-
-import java.io.IOException;
 
 public class LiquibaseRunner extends Main {
 
@@ -38,6 +35,7 @@ public class LiquibaseRunner extends Main {
             run(customArgs);
         }
         catch (LiquibaseException e) {
+            // do nothing
         }
         System.exit(-1);
     }
